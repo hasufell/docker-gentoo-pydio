@@ -17,6 +17,8 @@ We may want to configure the settings in `config/php5.6` and `config/nginx`.
 We have to make sure that php and nginx run with the group `www`, so that they
 have both access to the pydio data files we are going to set up.
 
+You should also __change the password__ in `create_pydio_db.sql`!
+
 ## Step 3: Creating volume data containers
 
 We create the volume data containers. One for the mysql database which holds
