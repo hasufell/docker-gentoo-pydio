@@ -97,3 +97,6 @@ docker run -d -ti \
 	hasufell/gentoo-nginx
 ```
 
+## TODO
+* use docker-compose
+* better split out the runtime data portion from the rest of the pydio stuff (e.g. files)
