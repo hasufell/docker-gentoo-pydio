@@ -81,7 +81,7 @@ docker run -d -ti \
 	hasufell/gentoo-php5.6
 ```
 
-Finally wer start nginx, connect it to the `pydio-data` volume and link it to
+Finally we start nginx, connect it to the `pydio-data` volume and link it to
 both the `mysql` and `php5.6` container. Both ports `80` and `443` will be
 mapped on the host.
 ```sh
