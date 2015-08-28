@@ -7,6 +7,7 @@ of this clone!__
 
 ```sh
 docker pull hasufell/pydio-data
+docker pull hasufell/gentoo-mysql
 docker pull hasufell/gentoo-php5.6
 docker pull hasufell/gentoo-nginx
 ```
