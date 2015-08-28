@@ -3,13 +3,36 @@
 __All of the commands should be executed from within the basedir
 of this clone!__
 
-## Step 1: Pulling the necessary images
+## Step 1: Getting the necessary images
 
 ```sh
 docker pull hasufell/pydio-data
 docker pull hasufell/gentoo-mysql
 docker pull hasufell/gentoo-php5.6
 docker pull hasufell/gentoo-nginx
+```
+
+### Alternative: Building the images yourself
+
+```sh
+git clone --depth=1 https://github.com/hasufell/docker-pydio-data.git
+cd docker-pydio-data
+docker build -t hasufell/pydio-data .
+cd ..
+
+git clone --depth=1 https://github.com/hasufell/docker-gentoo-mysql.git
+cd docker-gentoo-mysql
+docker build -t hasufell/gentoo-mysql .
+cd ..
+
+git clone --depth=1 https://github.com/hasufell/docker-gentoo-php5.6.git
+cd docker-gentoo-php5.6
+docker build -t hasufell/gentoo-php5.6 .
+cd ..
+
+git clone --depth=1 https://github.com/hasufell/docker-gentoo-nginx.git
+cd docker-gentoo-nginx
+docker build -t hasufell/gentoo-nginx .
 ```
 
 ## Step 2: Configuring the containers
