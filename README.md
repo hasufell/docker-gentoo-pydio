@@ -42,7 +42,7 @@ docker run -ti --name=pydio-data hasufell/pydio-data echo pydio-data
 ```
 
 And now we can fire up both the php and nginx containers while connecting
-them to the pydio-data container and linking php with nginx.
+them to the pydio-data container and linking php, nginx and mysql.
 ```sh
 docker run -d -ti --name=php5.6 -v \
 	`pwd`/config/php5/php-fpm.conf:/etc/php/fpm-php5.6/php-fpm.conf \
