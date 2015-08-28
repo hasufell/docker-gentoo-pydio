@@ -75,7 +75,7 @@ and connect it to the `pydio-data` volume.
 ```sh
 docker run -d -ti \
 	--name=php5.6 \
-	-v `pwd`/config/php5/php-fpm.conf:/etc/php/fpm-php5.6/php-fpm.conf \
+	-v `pwd`/config/php5:/etc/php/fpm-php5.6/ \
 	--volumes-from pydio-data \
 	--link mysql:mysql \
 	hasufell/gentoo-php5.6
