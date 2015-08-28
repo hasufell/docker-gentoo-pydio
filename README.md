@@ -27,13 +27,7 @@ docker run -d -ti --name=mysql \
 	-p 3306:3306 \
 	-v `pwd`/create_pydio_db.sql:/create_pydio_db.sql \
 	--volumes-from mysql-data \
-	hasufell/gentoo-mysql
-```
-
-Then we execute the pydio sql script in the running container:
-```sh
-docker exec -ti mysql \
-	/bin/bash -c "/usr/bin/mysql -uroot < /create_pydio_db.sql"
+	hasufell/gentoo-mysql bash -c 'sed -i -e "s|^fg$|/usr/bin/mysql -uroot < /create_pydio_db\.sql\nfg|" /run.sh && /run.sh'
 ```
 
 Now we create the data volume that holds the pydio data:
