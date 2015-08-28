@@ -40,7 +40,6 @@ to the `mysql-data` container.
 ```sh
 docker run -d -ti \
 	--name=mysql \
-	-p 3306:3306 \
 	-v `pwd`/create_pydio_db.sql:/create_pydio_db.sql \
 	--volumes-from mysql-data \
 	-e STARTUP_SQL=/create_pydio_db.sql \
