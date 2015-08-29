@@ -1,5 +1,8 @@
 # Gentoo based pydio with atomic nginx, mysql, php and data containers
 
+__All of the commands should be executed from within the basedir
+of this clone!__
+
 ## Configuring the containers
 
 Copy the example settings over. This is done so you won't get merge conflicts
@@ -59,9 +62,6 @@ CONTAINER ID        IMAGE                          COMMAND                CREATE
 in which case we pick `pydio_mysql_1` for the hostname in the pydio mysql setup.
 
 ## Alternative: Manually starting
-
-__All of the commands should be executed from within the basedir
-of this clone!__
 
 ### Step 1: Getting the necessary images
 
