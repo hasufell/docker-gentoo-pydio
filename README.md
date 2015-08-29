@@ -12,10 +12,7 @@ when you pull the latest changeset from this repository. But you could still
 commit your own configs and push to some private repository.
 
 ```
-cp -a ./config/examples/nginx-reverse/* ./config/nginx-reverse/
-cp -a ./config/examples/nginx-pydio/* ./config/nginx-pydio/
-cp -a ./config/examples/php5/* ./config/php5/
-cp -a ./config/examples/ssl/* ./config/ssl/
+cp -a ./example-config/* ./config/
 ```
 
 You may want to adjust settings in the following config directories:
