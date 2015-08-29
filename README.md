@@ -1,9 +1,26 @@
 # Gentoo based pydio with atomic nginx, mysql, php and data containers
 
+## Starting via docker-compose
+
+### Prerequisites
+* `docker-compose`
+
+### Starting
+```
+docker-compose up
+```
+
+### Restarting
+```
+docker-compose restart
+```
+
+## Manually starting
+
 __All of the commands should be executed from within the basedir
 of this clone!__
 
-## Step 1: Getting the necessary images
+### Step 1: Getting the necessary images
 
 ```sh
 docker pull hasufell/pydio-data
@@ -12,7 +29,7 @@ docker pull hasufell/gentoo-php5.6
 docker pull hasufell/gentoo-nginx
 ```
 
-### Alternative: Building the images yourself
+#### Alternative: Building the images yourself
 
 ```sh
 git clone --depth=1 https://github.com/hasufell/docker-pydio-data.git
@@ -35,7 +52,7 @@ cd docker-gentoo-nginx
 docker build -t hasufell/gentoo-nginx .
 ```
 
-## Step 2: Configuring the containers
+### Step 2: Configuring the containers
 
 We may want to configure the settings in `config/php5.6` and `config/nginx`.
 We have to make sure that php and nginx run with the group `www`, so that they
@@ -43,7 +60,7 @@ have both access to the pydio data files we are going to set up.
 
 You should also __change the password__ in `create_pydio_db.sql`!
 
-## Step 3: Creating volume data containers
+### Step 3: Creating volume data containers
 
 We create the volume data containers. One for the mysql database which holds
 the actual databases (`/var/lib/mysql`) and the mysql configuration (`/etc/mysql`), but not the server:
@@ -56,7 +73,7 @@ And one for the pydio-data which is served by nginx and php:
 docker run -ti --name=pydio-data hasufell/pydio-data echo pydio-data
 ```
 
-## Step 4: Creating the mysql, php and nginx containers
+### Step 4: Creating the mysql, php and nginx containers
 
 Now we start up the mysql server and mount our pydio mysql script into it,
 which will be used for creating the pydio user and database. The server is linked
@@ -98,5 +115,4 @@ docker run -d -ti \
 ```
 
 ## TODO
-* use docker-compose
 * better split out the runtime data portion from the rest of the pydio stuff (e.g. files)
