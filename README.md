@@ -20,7 +20,6 @@ You may want to adjust settings in the following config directories:
 * `./config/nginx-pydio` (will be mapped into `/etc/nginx/` of the pydio server)
 * `./config/php5` (will be mapped into `/etc/php/fpm-php5.6/`)
 * `./config/ssl/certs` (will be mapped into `/etc/ssl/certs/`)
-* `./config/ssl/auth` (will be mapped into `/etc/ssl/auth/`)
 
 Important settings:
 * make sure nginx (pydio instance) and php5 run with the `www` group (should be pre-set), so that they can both access the pydio-data container
@@ -144,7 +143,6 @@ docker run -d -ti \
 	--name=nginx-reverse \
 	-v `pwd`/config/nginx-reverse:/etc/nginx/ \
 	-v `pwd`/config/ssl/certs:/etc/ssl/certs/ \
-	-v `pwd`/config/ssl/auth:/etc/ssl/auth/ \
 	-p 80:80 -p 443:443 \
 	--link nginx-pydio:nginx-pydio \
 	hasufell/gentoo-nginx
