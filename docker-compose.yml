@@ -3,11 +3,11 @@ pydiodata:
   command: echo pydiodata
 
 mysqldata:
-  image: hasufell/gentoo-mysql
+  image: hasufell/gentoo-mysql:20150820
   command: echo mysqldata
 
 mysql:
-    image: hasufell/gentoo-mysql
+    image: hasufell/gentoo-mysql:20150820
     volumes_from:
       - mysqldata
     volumes:
@@ -16,7 +16,7 @@ mysql:
       - STARTUP_SQL=/create_pydio_db.sql
 
 php56:
-    image: hasufell/gentoo-php5.6
+    image: hasufell/gentoo-php5.6:20150820
     volumes_from:
       - pydiodata
     volumes:
@@ -25,7 +25,7 @@ php56:
       - mysql:mysql
 
 nginx:
-    image: hasufell/gentoo-nginx
+    image: hasufell/gentoo-nginx:20150820
     volumes_from:
       - pydiodata
     volumes:

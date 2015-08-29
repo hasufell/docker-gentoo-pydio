@@ -57,9 +57,9 @@ of this clone!__
 
 ```sh
 docker pull hasufell/pydio-data
-docker pull hasufell/gentoo-mysql
-docker pull hasufell/gentoo-php5.6
-docker pull hasufell/gentoo-nginx
+docker pull hasufell/gentoo-mysql:20150820
+docker pull hasufell/gentoo-php5.6:20150820
+docker pull hasufell/gentoo-nginx:20150820
 ```
 
 #### Alternative: Building the images yourself
@@ -68,13 +68,13 @@ docker pull hasufell/gentoo-nginx
 git clone --depth=1 https://github.com/hasufell/docker-pydio-data.git
 docker build -t hasufell/pydio-data docker-pydio-data
 
-git clone --depth=1 https://github.com/hasufell/docker-gentoo-mysql.git
+git clone --depth=1 -b 20150820 https://github.com/hasufell/docker-gentoo-mysql.git
 docker build -t hasufell/gentoo-mysql docker-gentoo-mysql
 
-git clone --depth=1 https://github.com/hasufell/docker-gentoo-php5.6.git
+git clone --depth=1 -b 20150820 https://github.com/hasufell/docker-gentoo-php5.6.git
 docker build -t hasufell/gentoo-php5.6 docker-gentoo-php5.6
 
-git clone --depth=1 https://github.com/hasufell/docker-gentoo-nginx.git
+git clone --depth=1 -b 20150820 https://github.com/hasufell/docker-gentoo-nginx.git
 docker build -t hasufell/gentoo-nginx docker-gentoo-nginx
 ```
 
@@ -83,7 +83,7 @@ docker build -t hasufell/gentoo-nginx docker-gentoo-nginx
 We create the volume data containers. One for the mysql database which holds
 the actual databases (`/var/lib/mysql`) and the mysql configuration (`/etc/mysql`), but not the server:
 ```sh
-docker run -ti --name=mysql-data hasufell/gentoo-mysql echo mysql-data
+docker run -ti --name=mysql-data hasufell/gentoo-mysql:20150820 echo mysql-data
 ```
 
 And one for the pydio-data which is served by nginx and php:
@@ -102,7 +102,7 @@ docker run -d -ti \
 	-v `pwd`/create_pydio_db.sql:/create_pydio_db.sql \
 	--volumes-from mysql-data \
 	-e STARTUP_SQL=/create_pydio_db.sql \
-	hasufell/gentoo-mysql
+	hasufell/gentoo-mysql:20150820
 ```
 
 Then we start the php container, link it to the `mysql` container (server)
@@ -113,7 +113,7 @@ docker run -d -ti \
 	-v `pwd`/config/php5:/etc/php/fpm-php5.6/ \
 	--volumes-from pydio-data \
 	--link mysql:mysql \
-	hasufell/gentoo-php5.6
+	hasufell/gentoo-php5.6:20150820
 ```
 
 Finally we start nginx, connect it to the `pydio-data` volume and link it to
@@ -129,7 +129,7 @@ docker run -d -ti \
 	-p 80:80 -p 443:443 \
 	--link mysql:mysql \
 	--link php5.6:php56 \
-	hasufell/gentoo-nginx
+	hasufell/gentoo-nginx:20150820
 ```
 
 ### Setting up pydio
