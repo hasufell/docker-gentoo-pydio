@@ -1,5 +1,13 @@
 # Gentoo based pydio with atomic nginx, mysql, php and data containers
 
+## Configuring the containers
+
+We may want to configure the settings in `config/php5.6` and `config/nginx`.
+We have to make sure that php and nginx run with the group `www`, so that they
+have both access to the pydio data files we are going to set up.
+
+You should also __change the password__ in `create_pydio_db.sql`!
+
 ## Starting via docker-compose
 
 ### Prerequisites
@@ -14,6 +22,22 @@ docker-compose up
 ```
 docker-compose restart
 ```
+
+### Setting up pydio
+
+When you configure the mysql driver for pydio, then it will require the
+hostname of the mysql server. In order to figure that one out, we do:
+```
+docker ps -f "name=pydio_mysql"
+```
+
+That may yield something like
+```
+CONTAINER ID        IMAGE                          COMMAND                CREATED             STATUS              PORTS               NAMES
+9f6cc92a733b        hasufell/gentoo-mysql:latest   "/bin/sh -c /run.sh"   14 minutes ago      Up 10 minutes       3306/tcp            pydio_mysql_1
+```
+
+in which case we pick `pydio_mysql_1` for the hostname in the pydio mysql setup.
 
 ## Alternative: Manually starting
 
@@ -51,14 +75,6 @@ git clone --depth=1 https://github.com/hasufell/docker-gentoo-nginx.git
 cd docker-gentoo-nginx
 docker build -t hasufell/gentoo-nginx .
 ```
-
-### Step 2: Configuring the containers
-
-We may want to configure the settings in `config/php5.6` and `config/nginx`.
-We have to make sure that php and nginx run with the group `www`, so that they
-have both access to the pydio data files we are going to set up.
-
-You should also __change the password__ in `create_pydio_db.sql`!
 
 ### Step 3: Creating volume data containers
 
@@ -113,6 +129,12 @@ docker run -d -ti \
 	--link php5.6:php56 \
 	hasufell/gentoo-nginx
 ```
+
+### Setting up pydio
+
+When the pydio setup requires you to enter the mysql server hostname, just
+type in `mysql`.
+
 
 ## TODO
 * better split out the runtime data portion from the rest of the pydio stuff (e.g. files)
