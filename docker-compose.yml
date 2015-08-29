@@ -11,7 +11,7 @@ mysql:
     volumes_from:
       - mysqldata
     volumes:
-      - ./create_pydio_db.sql:/create_pydio_db.sql
+      - ./config/mysql/create_pydio_db.sql:/create_pydio_db.sql
     environment:
       - STARTUP_SQL=/create_pydio_db.sql
 
