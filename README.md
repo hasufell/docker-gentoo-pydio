@@ -15,7 +15,7 @@ docker-compose up
 docker-compose restart
 ```
 
-## Manually starting
+## Alternative: Manually starting
 
 __All of the commands should be executed from within the basedir
 of this clone!__
