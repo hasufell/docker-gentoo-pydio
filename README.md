@@ -63,23 +63,16 @@ docker pull hasufell/gentoo-nginx
 
 ```sh
 git clone --depth=1 https://github.com/hasufell/docker-pydio-data.git
-cd docker-pydio-data
-docker build -t hasufell/pydio-data .
-cd ..
+docker build -t hasufell/pydio-data docker-pydio-data
 
 git clone --depth=1 https://github.com/hasufell/docker-gentoo-mysql.git
-cd docker-gentoo-mysql
-docker build -t hasufell/gentoo-mysql .
-cd ..
+docker build -t hasufell/gentoo-mysql docker-gentoo-mysql
 
 git clone --depth=1 https://github.com/hasufell/docker-gentoo-php5.6.git
-cd docker-gentoo-php5.6
-docker build -t hasufell/gentoo-php5.6 .
-cd ..
+docker build -t hasufell/gentoo-php5.6 docker-gentoo-php5.6
 
 git clone --depth=1 https://github.com/hasufell/docker-gentoo-nginx.git
-cd docker-gentoo-nginx
-docker build -t hasufell/gentoo-nginx .
+docker build -t hasufell/gentoo-nginx docker-gentoo-nginx
 ```
 
 ### Step 3: Creating volume data containers
