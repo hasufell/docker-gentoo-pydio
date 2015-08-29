@@ -79,13 +79,13 @@ git clone --depth=1 https://github.com/hasufell/docker-pydio-data.git
 docker build -t hasufell/pydio-data docker-pydio-data
 
 git clone --depth=1 -b 20150820 https://github.com/hasufell/docker-gentoo-mysql.git
-docker build -t hasufell/gentoo-mysql docker-gentoo-mysql
+docker build -t hasufell/gentoo-mysql:20150820 docker-gentoo-mysql
 
 git clone --depth=1 -b 20150820 https://github.com/hasufell/docker-gentoo-php5.6.git
-docker build -t hasufell/gentoo-php5.6 docker-gentoo-php5.6
+docker build -t hasufell/gentoo-php5.6:20150820 docker-gentoo-php5.6
 
 git clone --depth=1 -b 20150820 https://github.com/hasufell/docker-gentoo-nginx.git
-docker build -t hasufell/gentoo-nginx docker-gentoo-nginx
+docker build -t hasufell/gentoo-nginx:20150820 docker-gentoo-nginx
 ```
 
 ### Step 3: Creating volume data containers
