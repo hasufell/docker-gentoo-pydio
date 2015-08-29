@@ -153,3 +153,4 @@ just type in `mysql`.
 
 ## TODO
 * better split out the runtime data portion from the rest of the pydio stuff (e.g. files)
+* set up front proxy
