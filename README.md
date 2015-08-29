@@ -31,8 +31,11 @@ docker-compose restart
 
 ### Setting up pydio
 
-When you configure the mysql driver for pydio, then it will require the
-hostname of the mysql server. In order to figure that one out, we do:
+Now use a browser and access the site, e.g. `https://www.example.net` if
+that is your nginx hostname. You will go through the setup wizard.
+
+When you configure the mysql driver in the setup wizard, then it will require
+the hostname of the mysql server. In order to figure that one out, we do:
 ```
 docker ps -f "name=pydio_mysql"
 ```
@@ -131,8 +134,11 @@ docker run -d -ti \
 
 ### Setting up pydio
 
-When the pydio setup requires you to enter the mysql server hostname, just
-type in `mysql`.
+Now use a browser and access the site, e.g. `https://www.example.net` if
+that is your nginx hostname. You will go through the setup wizard.
+
+When the pydio setup wiiard requires you to enter the mysql server hostname,
+just type in `mysql`.
 
 
 ## TODO
