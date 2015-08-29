@@ -24,17 +24,25 @@ php56:
     links:
       - mysql:mysql
 
-nginx:
+nginxpydio:
     image: hasufell/gentoo-nginx
     volumes_from:
       - pydiodata
     volumes:
-      - ./config/nginx:/etc/nginx/
-      - ./config/ssl/certs:/etc/ssl/certs/
-      - ./config/ssl/auth:/etc/ssl/auth/
+      - ./config/nginx-pydio:/etc/nginx/
     links:
       - mysql:mysql
       - php56:php56
+
+nginxreverse:
+    image: hasufell/gentoo-nginx
+    volumes:
+      - ./config/nginx-reverse:/etc/nginx/
+      - ./config/ssl/certs:/etc/ssl/certs/
+      - ./config/ssl/auth:/etc/ssl/auth/
+    links:
+        - nginxpydio:nginxpydio
     ports:
       - "80:80"
       - "443:443"
+

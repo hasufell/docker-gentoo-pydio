@@ -10,21 +10,23 @@ when you pull the latest changeset from this repository. But you could still
 commit your own configs and push to some private repository.
 
 ```
-cp -a ./config/examples/nginx/* ./config/nginx/
+cp -a ./config/examples/nginx-reverse/* ./config/nginx-reverse/
+cp -a ./config/examples/nginx-pydio/* ./config/nginx-pydio/
 cp -a ./config/examples/php5/* ./config/php5/
 cp -a ./config/examples/ssl/* ./config/ssl/
 ```
 
 You may want to adjust settings in the following config directories:
-* `./config/nginx` (will be mapped into `/etc/nginx/`)
+* `./config/nginx-reverse` (will be mapped into `/etc/nginx/` of the front proxy)
+* `./config/nginx-pydio` (will be mapped into `/etc/nginx/` of the pydio server)
 * `./config/php5` (will be mapped into `/etc/php/fpm-php5.6/`)
 * `./config/ssl/certs` (will be mapped into `/etc/ssl/certs/`)
 * `./config/ssl/auth` (will be mapped into `/etc/ssl/auth/`)
 
 Important settings:
-* make sure nginx and php5 run with the `www` group (should be pre-set), so that they can both access the pydio-data container
-* make sure the hostnames in `config/nginx/sites-enabled/pydio.conf` are set correctly
-* make sure you have a proper ssl certificate setup and nginx is configured to use it in `config/nginx/sites-enabled/pydio.conf`
+* make sure nginx (pydio instance) and php5 run with the `www` group (should be pre-set), so that they can both access the pydio-data container
+* make sure the hostnames in `config/nginx-reverse/sites-enabled/pydio.conf` are set correctly
+* make sure you have a proper ssl certificate setup and the nginx front proxy is configured to use it in `config/nginx-reverse/sites-enabled/pydio.conf`
 * __change the password__ in `create_pydio_db.sql`! This is for accessing the mysql server
 
 ## Starting via docker-compose
@@ -126,19 +128,26 @@ docker run -d -ti \
 	hasufell/gentoo-php5.6
 ```
 
-Finally we start nginx, connect it to the `pydio-data` volume and link it to
-both the `mysql` and `php5.6` container. Both ports `80` and `443` will be
-mapped on the host.
+Now we start the nginx pydio instance, connect it to the `pydio-data` volume
+and link it to both the `mysql` and `php5.6` container.
 ```sh
 docker run -d -ti \
-	--name=nginx \
-	-v `pwd`/config/nginx:/etc/nginx/ \
-	-v `pwd`/config/ssl/certs:/etc/ssl/certs/ \
-	-v `pwd`/config/ssl/auth:/etc/ssl/auth/ \
+	--name=nginx-pydio \
+	-v `pwd`/config/nginx-pydio:/etc/nginx/ \
 	--volumes-from pydio-data \
-	-p 80:80 -p 443:443 \
 	--link mysql:mysql \
 	--link php5.6:php56 \
+	hasufell/gentoo-nginx
+```
+
+```sh
+docker run -d -ti \
+	--name=nginx-reverse \
+	-v `pwd`/config/nginx-reverse:/etc/nginx/ \
+	-v `pwd`/config/ssl/certs:/etc/ssl/certs/ \
+	-v `pwd`/config/ssl/auth:/etc/ssl/auth/ \
+	-p 80:80 -p 443:443 \
+	--link nginx-pydio:nginx-pydio \
 	hasufell/gentoo-nginx
 ```
 
@@ -147,10 +156,9 @@ docker run -d -ti \
 Now use a browser and access the site, e.g. `https://www.example.net` if
 that is your nginx hostname. You will go through the setup wizard.
 
-When the pydio setup wiiard requires you to enter the mysql server hostname,
+When the pydio setup wizard requires you to enter the mysql server hostname,
 just type in `mysql`.
 
 
 ## TODO
 * better split out the runtime data portion from the rest of the pydio stuff (e.g. files)
-* set up front proxy
