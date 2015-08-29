@@ -2,6 +2,16 @@
 
 ## Configuring the containers
 
+Copy the example settings over. This is done so you won't get merge conflicts
+when you pull the latest changeset from this repository. But you could still
+commit your own configs and push to some private repository.
+
+```
+cp -a ./config/examples/nginx/* ./config/nginx/
+cp -a ./config/examples/php5/* ./config/php5/
+cp -a ./config/examples/ssl/* ./config/ssl/
+```
+
 You may want to adjust settings in the following config directories:
 * `./config/nginx` (will be mapped into `/etc/nginx/`)
 * `./config/php5` (will be mapped into `/etc/php/fpm-php5.6/`)
