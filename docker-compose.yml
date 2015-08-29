@@ -39,7 +39,6 @@ nginxreverse:
     volumes:
       - ./config/nginx-reverse:/etc/nginx/
       - ./config/ssl/certs:/etc/ssl/certs/
-      - ./config/ssl/auth:/etc/ssl/auth/
     links:
         - nginxpydio:nginxpydio
     ports:
