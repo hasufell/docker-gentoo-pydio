@@ -20,7 +20,7 @@ You may want to adjust settings in the following config directories:
 * `./config/nginx-reverse` (will be mapped into `/etc/nginx/` of the front proxy)
 * `./config/nginx-pydio` (will be mapped into `/etc/nginx/` of the pydio server)
 * `./config/php5` (will be mapped into `/etc/php/fpm-php5.6/`)
-* `./config/ssl/certs` (will be mapped into `/etc/ssl/certs/`)
+* `./config/ssl/server` (will be mapped into `/etc/ssl/server/`)
 * `./config/mysql` (holds the `create_pydio_db.sql` sql script which will be executed when the mysql server starts for the first time)
 
 Important settings:
@@ -144,7 +144,7 @@ docker run -d -ti \
 docker run -d -ti \
 	--name=nginx-reverse \
 	-v `pwd`/config/nginx-reverse:/etc/nginx/ \
-	-v `pwd`/config/ssl/certs:/etc/ssl/certs/ \
+	-v `pwd`/config/ssl/server:/etc/ssl/server/ \
 	-p 80:80 -p 443:443 \
 	--link nginx-pydio:nginx-pydio:20150820 \
 	hasufell/gentoo-nginx

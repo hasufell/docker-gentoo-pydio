@@ -30,6 +30,7 @@ nginxpydio:
       - pydiodata
     volumes:
       - ./config/nginx-pydio:/etc/nginx/
+      - ./config/ssl/server:/etc/ssl/server/
     links:
       - mysql:mysql
       - php56:php56
@@ -38,7 +39,7 @@ nginxreverse:
     image: hasufell/gentoo-nginx:20150820
     volumes:
       - ./config/nginx-reverse:/etc/nginx/
-      - ./config/ssl/certs:/etc/ssl/certs/
+      - ./config/ssl/server:/etc/ssl/server/
     links:
         - nginxpydio:nginxpydio
     ports:
