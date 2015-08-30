@@ -19,8 +19,9 @@ cp -a ./example-config/* ./config/
 You may want to adjust settings in the following config directories:
 * `./config/nginx-reverse` (will be mapped into `/etc/nginx/` of the front proxy)
 * `./config/nginx-pydio` (will be mapped into `/etc/nginx/` of the pydio server)
-* `./config/php5` (will be mapped into `/etc/php/fpm-php5.6/`)
-* `./config/ssl/server` (will be mapped into `/etc/ssl/server/`)
+* `./config/php5/ext-active` (will be mapped into `/etc/php/fpm-php5.6/ext-active` for additional configuration on top of the default one)
+* `./config/php5/fpm.d` (will be mapped into `/etc/php/fpm-php5.6/fpm.d` for additional configuration on top of the default one)
+* `./config/ssl/server` (will be mapped into `/etc/ssl/server/` for certificates)
 * `./config/mysql` (holds the `create_pydio_db.sql` sql script which will be executed when the mysql server starts for the first time)
 
 Important settings:
@@ -122,7 +123,8 @@ and connect it to the `pydio-data` volume.
 ```sh
 docker run -d -ti \
 	--name=php5.6 \
-	-v `pwd`/config/php5:/etc/php/fpm-php5.6/ \
+	-v `pwd`/config/php5/ext-active:/etc/php/fpm-php5.6/ext-active/ \
+	-v `pwd`/config/php5/fpm.d:/etc/php/fpm-php5.6/fpm.d/ \
 	--volumes-from pydio-data \
 	--link mysql:mysql \
 	hasufell/gentoo-php5.6
