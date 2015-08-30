@@ -36,4 +36,4 @@ nginxpydio:
       - mysql:mysql
       - pydiophp56:php56
     environment:
-      - VIRTUAL_HOST=<hostname>
+      - VIRTUAL_HOST
