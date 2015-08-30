@@ -104,7 +104,7 @@ to the `mysql-data` container.
 ```sh
 docker run -d -ti \
 	--name=mysql \
-	-v `pwd`/create_pydio_db.sql:/create_pydio_db.sql \
+	-v "`pwd`"/create_pydio_db.sql:/create_pydio_db.sql \
 	--volumes-from mysql-data \
 	-e STARTUP_SQL=/create_pydio_db.sql \
 	hasufell/gentoo-mysql:20150820
@@ -115,8 +115,8 @@ and connect it to the `pydio-data` volume.
 ```sh
 docker run -d -ti \
 	--name=php5.6 \
-	-v `pwd`/config/php5/ext-active:/etc/php/fpm-php5.6/ext-active/ \
-	-v `pwd`/config/php5/fpm.d:/etc/php/fpm-php5.6/fpm.d/ \
+	-v "`pwd`"/config/php5/ext-active:/etc/php/fpm-php5.6/ext-active/ \
+	-v "`pwd`"/config/php5/fpm.d:/etc/php/fpm-php5.6/fpm.d/ \
 	--volumes-from pydio-data \
 	--link mysql:mysql \
 	pydio-php56
@@ -128,7 +128,7 @@ is `foo.bar.com`, we do:
 ```sh
 docker run -d -ti \
 	--name=nginx-pydio \
-	-v `pwd`/config/nginx-pydio:/etc/nginx/ \
+	-v "`pwd`"/config/nginx-pydio:/etc/nginx/ \
 	--volumes-from pydio-data \
 	--link mysql:mysql \
 	--link php5.6:php56 \
