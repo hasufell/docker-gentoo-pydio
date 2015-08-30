@@ -31,19 +31,9 @@ nginxpydio:
       - pydiodata
     volumes:
       - ./config/nginx-pydio:/etc/nginx/
-      - ./config/ssl/server:/etc/ssl/server/
+      - ./config/ssl/server:/etc/nginx/certs/
     links:
       - mysql:mysql
       - php56:php56
-
-nginxreverse:
-    image: hasufell/gentoo-nginx
-    volumes:
-      - ./config/nginx-reverse:/etc/nginx/
-      - ./config/ssl/server:/etc/ssl/server/
-    links:
-        - nginxpydio:nginxpydio
-    ports:
-      - "80:80"
-      - "443:443"
-
+    environment:
+      - VIRTUAL_HOST=<hostname>
