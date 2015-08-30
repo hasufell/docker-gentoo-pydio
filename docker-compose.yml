@@ -15,8 +15,8 @@ mysql:
     environment:
       - STARTUP_SQL=/create_pydio_db.sql
 
-php56:
-    image: hasufell/gentoo-php5.6:20150820
+pydiophp56:
+    build: php56/
     volumes_from:
       - pydiodata
     volumes:
@@ -34,6 +34,6 @@ nginxpydio:
       - ./config/ssl/server:/etc/nginx/certs/
     links:
       - mysql:mysql
-      - php56:php56
+      - pydiophp56:php56
     environment:
       - VIRTUAL_HOST=<hostname>

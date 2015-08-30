@@ -53,8 +53,12 @@ docker-compose restart
 docker pull hasufell/gentoo-nginx-proxy:20150820
 docker pull hasufell/pydio-data
 docker pull hasufell/gentoo-mysql:20150820
-docker pull hasufell/gentoo-php5.6:20150820
 docker pull hasufell/gentoo-nginx:20150820
+```
+
+Now build the local pydio-php:
+```sh
+docker build -t pydio-php56 php56/
 ```
 
 ### Step 3: Creating volume data containers
@@ -104,7 +108,7 @@ docker run -d -ti \
 	-v `pwd`/config/php5/fpm.d:/etc/php/fpm-php5.6/fpm.d/ \
 	--volumes-from pydio-data \
 	--link mysql:mysql \
-	hasufell/gentoo-php5.6:20150820
+	pydio-php56
 ```
 
 Now we start the nginx pydio instance, connect it to the `pydio-data` volume
