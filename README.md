@@ -36,6 +36,7 @@ Important settings:
 
 ### Starting
 ```
+export VIRTUAL_HOST=<pydio-hostname>
 docker run -d -p 80:80 -p 443:443 -v ./config/ssl/server:/etc/nginx/certs -v /var/run/docker.sock:/tmp/docker.sock:ro hasufell/gentoo-nginx-proxy:20150820
 docker-compose up
 ```
