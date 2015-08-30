@@ -23,6 +23,7 @@ RUN git clone --depth=1 https://github.com/hasufell/php-overlay.git /usr/php-ove
 COPY php-overlay.conf /etc/paludis/repositories/php-overlay.conf
 RUN chgrp paludisbuild /dev/tty && \
 	cave sync php-overlay
+RUN eix-update
 
 RUN chgrp paludisbuild /dev/tty && \
 	cave resolve -z -x \
