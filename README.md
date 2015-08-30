@@ -32,12 +32,12 @@ Important settings:
 
 ### Prerequisites
 * install `docker-compose`
-* pull the reverse proxy: `docker pull hasufell/gentoo-nginx-proxy:latest`
+* pull the reverse proxy: `docker pull hasufell/gentoo-nginx-proxy:20150820`
 
 start the reverse proxy:
 
 ```
-docker run -d -p 80:80 -p 443:443 -v ./config/ssl/server:/etc/nginx/certs -v /var/run/docker.sock:/tmp/docker.sock:ro hasufell/gentoo-nginx-proxy:latest
+docker run -d -p 80:80 -p 443:443 -v ./config/ssl/server:/etc/nginx/certs -v /var/run/docker.sock:/tmp/docker.sock:ro hasufell/gentoo-nginx-proxy:20150820
 ```
 ### Starting
 ```
@@ -55,10 +55,10 @@ docker-compose restart
 ### Step 1: Getting the necessary images
 
 ```sh
-docker pull hasufell/gentoo-nginx-proxy:latest
+docker pull hasufell/gentoo-nginx-proxy:20150820
 docker pull hasufell/pydio-data
-docker pull hasufell/gentoo-mysql:latest
-docker pull hasufell/gentoo-nginx:latest
+docker pull hasufell/gentoo-mysql:20150820
+docker pull hasufell/gentoo-nginx:20150820
 ```
 
 Now build the local pydio-php:
@@ -71,7 +71,7 @@ docker build -t pydio-php56 php56/
 We create the volume data containers. One for the mysql database which holds
 the actual databases (`/var/lib/mysql`) and the mysql configuration (`/etc/mysql`), but not the server:
 ```sh
-docker run -ti --name=mysql-data hasufell/gentoo-mysql:latest echo mysql-data
+docker run -ti --name=mysql-data hasufell/gentoo-mysql:20150820 echo mysql-data
 ```
 
 And one for the pydio-data which is served by nginx and php:
@@ -89,7 +89,7 @@ docker run -d -ti \
 	-v `pwd`/config/ssl/server:/etc/nginx/certs \
 	-v /var/run/docker.sock:/tmp/docker.sock:ro \
 	-p 80:80 -p 443:443 \
-	hasufell/gentoo-nginx-proxy:latest
+	hasufell/gentoo-nginx-proxy:20150820
 ```
 
 Now we start up the mysql server and mount our pydio mysql script into it,
@@ -101,7 +101,7 @@ docker run -d -ti \
 	-v `pwd`/create_pydio_db.sql:/create_pydio_db.sql \
 	--volumes-from mysql-data \
 	-e STARTUP_SQL=/create_pydio_db.sql \
-	hasufell/gentoo-mysql:latest
+	hasufell/gentoo-mysql:20150820
 ```
 
 Then we start the php container, link it to the `mysql` container (server)
@@ -127,7 +127,7 @@ docker run -d -ti \
 	--link mysql:mysql \
 	--link php5.6:php56 \
 	-e VIRTUAL_HOST=foo.bar.com \
-	hasufell/gentoo-nginx:latest
+	hasufell/gentoo-nginx:20150820
 ```
 
 ## Setting up pydio
