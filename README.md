@@ -37,7 +37,12 @@ Important settings:
 start the reverse proxy:
 
 ```
-docker run -d -p 80:80 -p 443:443 -v ./config/ssl/server:/etc/nginx/certs -v /var/run/docker.sock:/tmp/docker.sock:ro hasufell/gentoo-nginx-proxy:20150820
+docker run -d \
+	-p 80:80 -p 443:443 \
+	-v ./config/ssl/server:/etc/nginx/certs \
+	-v ./config/nginx-proxy/sites-enabled:/etc/nginx/sites-enabled/proxy.conf \
+	-v /var/run/docker.sock:/tmp/docker.sock:ro \
+	hasufell/gentoo-nginx-proxy:20150820
 ```
 ### Starting
 ```
@@ -86,9 +91,10 @@ virtual hosts and configures itself appropriately:
 ```sh
 docker run -d -ti \
 	--name=nginx-reverse \
-	-v `pwd`/config/ssl/server:/etc/nginx/certs \
-	-v /var/run/docker.sock:/tmp/docker.sock:ro \
 	-p 80:80 -p 443:443 \
+	-v ./config/ssl/server:/etc/nginx/certs \
+	-v ./config/nginx-proxy/sites-enabled:/etc/nginx/sites-enabled/proxy.conf \
+	-v /var/run/docker.sock:/tmp/docker.sock:ro \
 	hasufell/gentoo-nginx-proxy:20150820
 ```
 
