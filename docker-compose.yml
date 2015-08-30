@@ -16,7 +16,7 @@ mysql:
       - STARTUP_SQL=/create_pydio_db.sql
 
 pydiophp56:
-    build: php56/
+    image: hasufell/gentoo-pydio:20150820
     volumes_from:
       - pydiodata
     volumes:

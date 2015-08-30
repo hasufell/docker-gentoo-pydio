@@ -64,11 +64,7 @@ docker pull hasufell/gentoo-nginx-proxy:20150820
 docker pull hasufell/pydio-data
 docker pull hasufell/gentoo-mysql:20150820
 docker pull hasufell/gentoo-nginx:20150820
-```
-
-Now build the local pydio-php:
-```sh
-docker build -t pydio-php56 php56/
+docker pull hasufell/gentoo-pydio:20150820
 ```
 
 ### Step 3: Creating volume data containers
