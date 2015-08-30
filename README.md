@@ -28,7 +28,7 @@ Important settings:
 * make sure you have a proper ssl certificate setup in `./config/ssl/server`, one for each virtual host you are running (if the virtual hostname is `foo.bar.com`, then the cert must be named `foo.bar.com.crt` and the key `foo.bar.com.key`)
 * __change the password__ in `./config/mysql/create_pydio_db.sql`! This is for accessing the mysql server
 
-## Starting via docker-compose
+## The easy way
 
 ### Prerequisites
 * install `docker-compose`
