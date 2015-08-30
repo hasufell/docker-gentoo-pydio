@@ -25,8 +25,8 @@ You may want to adjust settings in the following config directories:
 
 Important settings:
 * make sure nginx (pydio instance) and php5 run with the `www` group (should be pre-set), so that they can both access the pydio-data container
-* make sure the hostnames in `config/nginx-reverse/sites-enabled/pydio.conf` are set correctly
-* make sure you have a proper ssl certificate setup and the nginx front proxy is configured to use it in `config/nginx-reverse/sites-enabled/pydio.conf`
+* make sure the hostnames in `./config/nginx-reverse/sites-enabled/pydio.conf` are set correctly
+* make sure you have a proper ssl certificate setup and the nginx front proxy is configured to use it in `./config/nginx-reverse/sites-enabled/pydio.conf`
 * __change the password__ in `./config/mysql/create_pydio_db.sql`! This is for accessing the mysql server
 
 ## Starting via docker-compose
