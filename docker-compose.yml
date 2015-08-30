@@ -20,7 +20,8 @@ php56:
     volumes_from:
       - pydiodata
     volumes:
-      - ./config/php5:/etc/php/fpm-php5.6/
+      - ./config/php5/ext-active:/etc/php/fpm-php5.6/ext-active
+      - ./config/php5/fpm.d:/etc/php/fpm-php5.6/fpm.d
     links:
       - mysql:mysql
 
