@@ -40,7 +40,7 @@ start the reverse proxy:
 docker run -d \
 	-p 80:80 -p 443:443 \
 	-v ./config/ssl/server:/etc/nginx/certs \
-	-v ./config/nginx-proxy/sites-enabled:/etc/nginx/sites-enabled/proxy.conf \
+	-v ./config/nginx-proxy/sites-enabled/proxy.conf:/etc/nginx/sites-enabled/proxy.conf \
 	-v /var/run/docker.sock:/tmp/docker.sock:ro \
 	hasufell/gentoo-nginx-proxy:20150820
 ```
@@ -93,7 +93,7 @@ docker run -d -ti \
 	--name=nginx-reverse \
 	-p 80:80 -p 443:443 \
 	-v ./config/ssl/server:/etc/nginx/certs \
-	-v ./config/nginx-proxy/sites-enabled:/etc/nginx/sites-enabled/proxy.conf \
+	-v ./config/nginx-proxy/sites-enabled/proxy.conf:/etc/nginx/sites-enabled/proxy.conf \
 	-v /var/run/docker.sock:/tmp/docker.sock:ro \
 	hasufell/gentoo-nginx-proxy:20150820
 ```
