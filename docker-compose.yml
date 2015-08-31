@@ -8,6 +8,8 @@ mysqldata:
 
 mysql:
     image: hasufell/gentoo-mysql:20150820
+    stdin_open: true
+    tty: true
     volumes_from:
       - mysqldata
     volumes:
@@ -17,6 +19,8 @@ mysql:
 
 pydiophp56:
     image: hasufell/gentoo-pydio:20150820
+    stdin_open: true
+    tty: true
     volumes_from:
       - pydiodata
     volumes:
@@ -27,6 +31,8 @@ pydiophp56:
 
 nginxpydio:
     image: hasufell/gentoo-nginx:20150820
+    stdin_open: true
+    tty: true
     volumes_from:
       - pydiodata
     volumes:
