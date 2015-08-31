@@ -37,3 +37,5 @@ nginxpydio:
       - pydiophp56:php56
     environment:
       - VIRTUAL_HOST
+      - VIRTUAL_PROTO=https
+      - VIRTUAL_PORT=443
