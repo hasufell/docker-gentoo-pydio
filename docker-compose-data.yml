@@ -1,7 +1,7 @@
 pydiodata:
-  image: hasufell/pydio-data
+  image: hasufell/pydio-data:latest
   command: echo pydiodata
 
 mysqldata:
-  image: hasufell/gentoo-mysql:20150820
+  image: hasufell/gentoo-mysql:latest
   command: echo mysqldata

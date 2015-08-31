@@ -1,5 +1,5 @@
 mysql:
-    image: hasufell/gentoo-mysql
+    image: hasufell/gentoo-mysql:latest
     stdin_open: true
     tty: true
     volumes_from:
@@ -10,7 +10,7 @@ mysql:
       - STARTUP_SQL=/create_pydio_db.sql
 
 pydiophp56:
-    image: hasufell/gentoo-pydio-php
+    image: hasufell/gentoo-pydio-php:latest
     stdin_open: true
     tty: true
     volumes_from:
@@ -22,7 +22,7 @@ pydiophp56:
       - mysql:mysql
 
 nginxpydio:
-    image: hasufell/gentoo-nginx
+    image: hasufell/gentoo-nginx:latest
     stdin_open: true
     tty: true
     volumes_from:
