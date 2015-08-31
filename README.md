@@ -51,12 +51,15 @@ docker run -ti -d \
 ### Starting
 ```
 export VIRTUAL_HOST=<pydio-hostname>
-docker-compose up
+docker-compose -f docker-compose-data.yml up -d
+docker-compose up -d
 ```
 
 ### Restarting
 ```
-docker-compose restart
+docker-compose stop
+docker-compose rm
+docker-compose start
 ```
 
 ## Alternative: The hard way

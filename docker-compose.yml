@@ -1,11 +1,3 @@
-pydiodata:
-  image: hasufell/pydio-data
-  command: echo pydiodata
-
-mysqldata:
-  image: hasufell/gentoo-mysql
-  command: echo mysqldata
-
 mysql:
     image: hasufell/gentoo-mysql
     stdin_open: true
