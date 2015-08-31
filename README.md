@@ -67,7 +67,7 @@ docker-compose restart
 docker pull hasufell/pydio-data
 docker pull hasufell/gentoo-mysql:20150820
 docker pull hasufell/gentoo-nginx:20150820
-docker pull hasufell/gentoo-pydio:20150820
+docker pull hasufell/gentoo-pydio-php:20150820
 ```
 
 ### Step 3: Creating volume data containers
