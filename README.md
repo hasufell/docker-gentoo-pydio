@@ -36,13 +36,17 @@ Important settings:
 
 start the reverse proxy:
 
-```
-docker run -d -ti \
+```sh
+docker run -ti -d \
 	-p 80:80 -p 443:443 \
+	-v "`pwd`"/config/nginx-proxy/nginx.tmpl:/app/nginx.tmpl \
+	-v "`pwd`"/config/nginx-proxy/Procfile:/app/Procfile \
+	-v /var/run/docker.sock:/tmp/docker.sock:ro \
 	-v "`pwd`"/config/ssl/server:/etc/nginx/certs \
 	-v "`pwd`"/config/nginx-proxy/sites-enabled/proxy.conf:/etc/nginx/sites-enabled/proxy.conf \
-	-v /var/run/docker.sock:/tmp/docker.sock:ro \
-	hasufell/gentoo-nginx-proxy:latest
+	-e DOCKER_HOST=unix:///tmp/docker.sock \
+	hasufell/gentoo-nginx:latest \
+	sh -c 'cd /app && forego start -r'
 ```
 ### Starting
 ```
@@ -85,13 +89,17 @@ docker run -ti --name=pydio-data hasufell/pydio-data echo pydio-data
 First of all, we start the nginx reverse proxy which automatically detects
 virtual hosts and configures itself appropriately:
 ```sh
-docker run -d -ti \
+docker run -ti -d \
 	--name=nginx-reverse \
 	-p 80:80 -p 443:443 \
+	-v "`pwd`"/config/nginx-proxy/nginx.tmpl:/app/nginx.tmpl \
+	-v "`pwd`"/config/nginx-proxy/Procfile:/app/Procfile \
+	-v /var/run/docker.sock:/tmp/docker.sock:ro \
 	-v "`pwd`"/config/ssl/server:/etc/nginx/certs \
 	-v "`pwd`"/config/nginx-proxy/sites-enabled/proxy.conf:/etc/nginx/sites-enabled/proxy.conf \
-	-v /var/run/docker.sock:/tmp/docker.sock:ro \
-	hasufell/gentoo-nginx-proxy:latest
+	-e DOCKER_HOST=unix:///tmp/docker.sock \
+	hasufell/gentoo-nginx:latest \
+	sh -c 'cd /app && forego start -r'
 ```
 
 Now we start up the mysql server and mount our pydio mysql script into it,
