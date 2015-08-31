@@ -64,7 +64,6 @@ docker-compose restart
 ### Step 1: Getting the necessary images
 
 ```sh
-docker pull hasufell/gentoo-nginx-proxy:latest
 docker pull hasufell/pydio-data
 docker pull hasufell/gentoo-mysql:latest
 docker pull hasufell/gentoo-nginx:latest
