@@ -1,5 +1,5 @@
 pydiodata:
-  image: hasufell/pydio-data
+    image: hasufell/pydio-data:6.0.8
   command: echo pydiodata
 
 mysqldata:
