@@ -39,7 +39,7 @@ MYSQL_PASS=<mysql_admin_pass> \
 ```sh
 docker-compose -f docker-compose-reverse-proxy.yml stop
 docker-compose -f docker-compose-reverse-proxy.yml rm
-docker-compose -f docker-compose-reverse-proxy.yml up
+docker-compose -f docker-compose-reverse-proxy.yml up -d
 ```
 
 ## Setting up pydio
