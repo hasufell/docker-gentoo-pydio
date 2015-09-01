@@ -9,46 +9,38 @@ of this clone!__
 
 ### Prerequisites
 
-Copy the example settings over. This is done so you won't get merge conflicts
-when you pull the latest changeset from this repository. But you could still
-commit your own configs and push to some private repository. The configuration
-is pretty much ready to go, unless you have specific needs.
-
-```sh
-cp -a ./example-config/* ./config/
-```
-
-Important settings:
-* make sure you have a proper ssl certificate setup in `./config/nginx-proxy/ssl/server`, one for each virtual host you are running (if the virtual hostname is `foo.bar.com`, then the cert must be named `foo.bar.com.crt` and the key `foo.bar.com.key`)
-* __change the password__ in `./config/mysql/create_pydio_db.sql`! This is for accessing the mysql server
+SSL certificates:
+* make sure you have a proper ssl certificate setup in `./nginx-proxy/ssl/server`, one for each virtual host you are running (if the virtual hostname is `foo.bar.com`, then the cert must be named `foo.bar.com.crt` and the key `foo.bar.com.key`)
 
 Now we just need a few more steps:
 * install [docker-compose](https://docs.docker.com/compose/install/)
-* create the config containers: `docker-compose -f docker-compose-config.yml up`
 * create the data containers: `docker-compose -f docker-compose-data.yml up`
-* start the reverse proxy: `docker-compose -f docker-compose-reverse-proxy.yml up`
+* start the reverse proxy: `docker-compose -f docker-compose-reverse-proxy.yml up -d`
 
-### Starting
-```
-export VIRTUAL_HOST=<pydio-hostname>
-docker-compose up -d
+### Initializing for the first time
+```sh
+STARTUP_SQL=/mysql-scripts/create_pydio_db.sql \
+	VIRTUAL_HOST=<pydio-hostname> \
+	PYDIO_DB_PW=<password> \
+	MYSQL_PASS=<mysql_admin_pass> \
+	docker-compose up -d
 ```
 
-### Restarting
-```
+### Restarting the backend servers
+```sh
 docker-compose stop
 docker-compose rm
-docker-compose start
+MYSQL_PASS=<mysql_admin_pass> \
+	VIRTUAL_HOST=<pydio-hostname> \
+	docker-compose up -d
 ```
 
-### Recreating the config
+### Restarting the front proxy
+```sh
+docker-compose -f docker-compose-reverse-proxy.yml stop
+docker-compose -f docker-compose-reverse-proxy.yml rm
+docker-compose -f docker-compose-reverse-proxy.yml up
 ```
-docker-compose stop
-docker-compose -f docker-compose-config.yml rm
-docker-compose -f docker-compose-config.yml up
-docker-compose start
-```
-
 
 ## Setting up pydio
 

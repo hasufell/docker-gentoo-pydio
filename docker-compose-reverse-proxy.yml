@@ -3,8 +3,6 @@ nginxproxy:
     stdin_open: true
     tty: true
     command: sh -c 'cd /app && forego start -r'
-    volumes_from:
-      - nginxproxyconfig
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
     environment:

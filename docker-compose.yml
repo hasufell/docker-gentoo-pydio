@@ -1,30 +1,29 @@
 mysql:
-    image: hasufell/gentoo-mysql:latest
+    build: mysql/
     stdin_open: true
     tty: true
     volumes_from:
       - mysqldata
-      - mysqlconfig
     environment:
-      - STARTUP_SQL=/mysql-scripts/create_pydio_db.sql
+      - STARTUP_SQL
+      - PYDIO_DB_PW
+      - MYSQL_PASS
 
 pydiophp56:
-    image: hasufell/gentoo-pydio-php:latest
+    build: php5/
     stdin_open: true
     tty: true
     volumes_from:
       - pydiodata
-      - php5config
     links:
       - mysql:mysql
 
 nginxpydio:
-    image: hasufell/gentoo-nginx:latest
+    image: nginx-pydio/
     stdin_open: true
     tty: true
     volumes_from:
       - pydiodata
-      - nginxconfig
     links:
       - mysql:mysql
       - pydiophp56:php56
