@@ -121,7 +121,7 @@ docker run -d -ti \
 	-v "`pwd`"/config/php5/fpm.d:/etc/php/fpm-php5.6/fpm.d/ \
 	--volumes-from pydio-data \
 	--link mysql:mysql \
-	pydio-php56
+	hasufell/gentoo-pydio-php:20150820
 ```
 
 Now we start the nginx pydio instance, connect it to the `pydio-data` volume
