@@ -5,4 +5,3 @@ MAINTAINER  Julian Ospald <hasufell@gentoo.org>
 COPY nginx.tmpl /app/nginx.tmpl
 COPY Procfile /app/Procfile
 COPY sites-enabled/proxy.conf /etc/nginx/sites-enabled/proxy.conf
-COPY ssl/server /etc/nginx/certs
