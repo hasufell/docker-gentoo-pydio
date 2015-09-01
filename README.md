@@ -64,7 +64,7 @@ docker run \
 
 Suppose we have the backups in `pydio-data-backup.tar.xz` and
 `mysql-data-backup.tar.xz` in the current directory and want to add that
-data a new host. First we follow the [Prerequisites](README.md#prerequisites)
+data on a new host. First we follow the [Prerequisites](README.md#prerequisites)
 section as usual. But we do __not__ follow the
 [regular initialization](README.md#initializing-for-the-first-time).
 Instead, we run the following commands:
