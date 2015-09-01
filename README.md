@@ -56,7 +56,7 @@ then on _Pydio Main Options_. Under _Main Options_ insert __https://\<pydiohostn
 into the _SERVER URL_ field.
 On the same page you should also activate the PHP command line (further down
 under the _Command Line_ section, activate the 'yes' checkbox at
-_COMMAND-LINE ACTIVE_.
+_COMMAND-LINE ACTIVE_).
 
 
 ## TODO
