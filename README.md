@@ -42,6 +42,54 @@ docker-compose -f docker-compose-reverse-proxy.yml rm
 docker-compose -f docker-compose-reverse-proxy.yml up -d
 ```
 
+### Creating backups
+
+You need [docker-backup](https://github.com/docker-infra/docker-backup) first.
+
+Then we can simply create backups of all our data containers
+(in this example they will be dropped into the current directory):
+```sh
+docker run \
+	--volumes-from pydiodata \
+	-v "`pwd`":/backup \
+	hasufell/pydio-data:6.0.8 \
+	sh -c 'tar cvf /backup/pydio-data-backup.tar /var/www/pydio'
+
+docker run \
+	--volumes-from mysqldata \
+	-v "`pwd`":/backup \
+	hasufell/gentoo-mysql:20150820 \
+	sh -c 'tar cvf /backup/mysql-data-backup.tar /var/lib/mysql'
+```
+
+### Recreating from backup
+
+Suppose we have the backups in `pydio-data-backup.tar.xz` and
+`mysql-data-backup.tar.xz` in the current directory and want to add that
+data a new host. First we follow the [Prerequisites](README.md#prerequisites)
+section as usual. But we do __not__ follow the
+[regular initialization](README.md#initializing-for-the-first-time).
+Instead, we run the following commands:
+```sh
+docker run \
+	--volumes-from pydiodata \
+	-v "`pwd`":/backup \
+	hasufell/pydio-data:latest \
+	sh -c 'rm -rf /var/www/pydio/* && tar xvf /backup/pydio-data-backup.tar'
+
+docker run \
+	--volumes-from mysqldata \
+	-v "`pwd`":/backup \
+	hasufell/gentoo-mysql:latest \
+	sh -c 'rm -rf /var/lib/mysql/* && tar xvf /backup/mysql-data-backup.tar'
+```
+
+And now we _initialize_ the containers:
+```sh
+VIRTUAL_HOST=<pydio-hostname> \
+	docker-compose up -d
+```
+
 ## Setting up pydio
 
 Now use a browser and access the site, e.g. `https://www.example.net` if
