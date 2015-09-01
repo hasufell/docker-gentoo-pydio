@@ -4,10 +4,9 @@ mysql:
     tty: true
     volumes_from:
       - mysqldata
-    volumes:
-      - ./config/mysql/create_pydio_db.sql:/create_pydio_db.sql
+      - mysqlconfig
     environment:
-      - STARTUP_SQL=/create_pydio_db.sql
+      - STARTUP_SQL=/mysql-scripts/create_pydio_db.sql
 
 pydiophp56:
     image: hasufell/gentoo-pydio-php:latest
@@ -15,9 +14,7 @@ pydiophp56:
     tty: true
     volumes_from:
       - pydiodata
-    volumes:
-      - ./config/php5/ext-active:/etc/php/fpm-php5.6/ext-active
-      - ./config/php5/fpm.d:/etc/php/fpm-php5.6/fpm.d
+      - php5config
     links:
       - mysql:mysql
 
@@ -27,13 +24,9 @@ nginxpydio:
     tty: true
     volumes_from:
       - pydiodata
-    volumes:
-      - ./config/nginx-pydio:/etc/nginx/
-      - ./config/ssl/server:/etc/nginx/certs/
+      - nginxconfig
     links:
       - mysql:mysql
       - pydiophp56:php56
     environment:
       - VIRTUAL_HOST
-      - VIRTUAL_PROTO=https
-      - VIRTUAL_PORT=443

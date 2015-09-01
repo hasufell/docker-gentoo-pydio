@@ -31,27 +31,15 @@ Important settings:
 ## The easy way
 
 ### Prerequisites
-* install `docker-compose`
+* install [docker-compose](https://docs.docker.com/compose/install/)
 * pull the reverse proxy: `docker pull hasufell/gentoo-nginx-proxy:latest`
+* create the config containers: `docker-compose -f docker-compose-config.yml up`
+* create the data containers: `docker-compose -f docker-compose-data.yml up`
+* start the reverse proxy: `docker-compose -f docker-compose-reverse-proxy.yml up`
 
-start the reverse proxy:
-
-```sh
-docker run -ti -d \
-	-p 80:80 -p 443:443 \
-	-v "`pwd`"/config/nginx-proxy/nginx.tmpl:/app/nginx.tmpl \
-	-v "`pwd`"/config/nginx-proxy/Procfile:/app/Procfile \
-	-v /var/run/docker.sock:/tmp/docker.sock:ro \
-	-v "`pwd`"/config/ssl/server:/etc/nginx/certs \
-	-v "`pwd`"/config/nginx-proxy/sites-enabled/proxy.conf:/etc/nginx/sites-enabled/proxy.conf \
-	-e DOCKER_HOST=unix:///tmp/docker.sock \
-	hasufell/gentoo-nginx:latest \
-	sh -c 'cd /app && forego start -r'
-```
 ### Starting
 ```
 export VIRTUAL_HOST=<pydio-hostname>
-docker-compose -f docker-compose-data.yml up -d
 docker-compose up -d
 ```
 
@@ -59,6 +47,14 @@ docker-compose up -d
 ```
 docker-compose stop
 docker-compose rm
+docker-compose start
+```
+
+### Recreating the config
+```
+docker-compose stop
+docker-compose -f docker-compose-config.yml rm
+docker-compose -f docker-compose-config.yml up
 docker-compose start
 ```
 

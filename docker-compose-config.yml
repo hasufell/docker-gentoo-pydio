@@ -1,0 +1,20 @@
+mysqlconfig:
+    build: config/mysql
+    container_name: mysqlconfig
+    command: echo mysqlconfig
+
+nginxproxyconfig:
+    build: config/nginx-proxy
+    container_name: nginxproxyconfig
+    command: echo nginxproxyconfig
+
+nginxconfig:
+    build: config/nginx-pydio
+    container_name: nginxconfig
+    command: echo nginxconfig
+
+php5config:
+    build: config/php5
+    container_name: php5config
+    command: echo php5config
+
