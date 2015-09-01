@@ -5,5 +5,5 @@ MAINTAINER  Julian Ospald <hasufell@gentoo.org>
 # contains mysql script to initialize the pydio database
 COPY create_pydio_db.sql /mysql-scripts/create_pydio_db.sql
 
-VOLUME /etc/mysql
-VOLUME /mysql-scripts
+# honour our PYDIO_DB_PW env variable
+RUN sed -i -e '/^ImportSql\(\)/ { n; s/.*/\{\nsed -i -e \"s\/@432#PASSWORD#432@\/\$\{PYDIO_DB_PW\}\/\" \/mysql-scripts\/create_pydio_db\.sql/ ; }' /run.sh

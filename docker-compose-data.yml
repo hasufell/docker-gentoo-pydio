@@ -9,4 +9,3 @@ mysqldata:
     command: echo mysqldata
     volumes:
       - /var/lib/mysql
-
