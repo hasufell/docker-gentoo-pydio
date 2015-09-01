@@ -1,0 +1,14 @@
+nginxproxy:
+    image: hasufell/gentoo-nginx:20150820
+    stdin_open: true
+    tty: true
+    command: sh -c 'cd /app && forego start -r'
+    volumes_from:
+      - nginxproxyconfig
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    environment:
+      - DOCKER_HOST=unix:///tmp/docker.sock
+    ports:
+      - "80:80"
+      - "443:443"
