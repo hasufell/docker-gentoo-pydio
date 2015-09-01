@@ -2,10 +2,10 @@
 
 ![Missing concept image!](https://raw.githubusercontent.com/wiki/hasufell/docker-gentoo-pydio/images/concept.png)
 
+## Getting started
+
 __All of the commands should be executed from within the basedir
 of this clone!__
-
-## Getting started
 
 ### Prerequisites
 
