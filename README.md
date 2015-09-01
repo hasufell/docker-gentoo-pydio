@@ -24,7 +24,6 @@ Important settings:
 
 Now we just need a few more steps:
 * install [docker-compose](https://docs.docker.com/compose/install/)
-* pull the reverse proxy: `docker pull hasufell/gentoo-nginx-proxy:20150820`
 * create the config containers: `docker-compose -f docker-compose-config.yml up`
 * create the data containers: `docker-compose -f docker-compose-data.yml up`
 * start the reverse proxy: `docker-compose -f docker-compose-reverse-proxy.yml up`
