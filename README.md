@@ -48,7 +48,9 @@ Now use a browser and access the site, e.g. `https://www.example.net` if
 that is your nginx hostname. You will go through the setup wizard.
 
 When the pydio setup wizard requires you to enter the mysql server hostname,
-just type in `mysql`.
+just type in `mysql`. The pydio user and database are both `pydio` and the
+pydio password is what you supplied in the environment variable `PYDIO_DB_PW`
+when you set up the containers.
 
 For public links to work, log in as admin and go to the the admin settings
 (top right corner, then settings). Double click on _Application Parameters_,
