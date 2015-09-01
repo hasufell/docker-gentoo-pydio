@@ -5,6 +5,7 @@ nginxproxy:
     command: sh -c 'cd /app && forego start -r'
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./nginx-proxy/ssl/server:/etc/nginx/certs
     environment:
       - DOCKER_HOST=unix:///tmp/docker.sock
     ports:

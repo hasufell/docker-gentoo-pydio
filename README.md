@@ -10,7 +10,7 @@ of this clone!__
 ### Prerequisites
 
 SSL certificates:
-* make sure you have a proper ssl certificate setup in `./nginx-proxy/ssl/server`, one for each virtual host you are running (if the virtual hostname is `foo.bar.com`, then the cert must be named `foo.bar.com.crt` and the key `foo.bar.com.key`)
+* make sure you have a proper ssl certificate setup in `./nginx-proxy/ssl/server`, one for each virtual host you are running (if the virtual hostname is `foo.bar.com`, then the cert must be named `foo.bar.com.crt` and the key `foo.bar.com.key`), this folder will be mapped into the proxy server
 
 Now we just need a few more steps:
 * install [docker-compose](https://docs.docker.com/compose/install/)
