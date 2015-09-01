@@ -52,7 +52,7 @@ just type in `mysql`.
 
 For public links to work, log in as admin and go to the the admin settings
 (top right corner, then settings). Double click on _Application Parameters_,
-then on _Pydio Main Options_. Under _Main Options_ insert __https://<pydiohostname>__
+then on _Pydio Main Options_. Under _Main Options_ insert __https://\<pydiohostname\>__
 into the _SERVER URL_ field.
 On the same page you should also activate the PHP command line (further down
 under the _Command Line_ section, activate the 'yes' checkbox at
