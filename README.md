@@ -44,9 +44,7 @@ docker-compose -f docker-compose-reverse-proxy.yml up -d
 
 ### Creating backups
 
-You need [docker-backup](https://github.com/docker-infra/docker-backup) first.
-
-Then we can simply create backups of all our data containers
+We can simply create backups of all our data containers
 (in this example they will be dropped into the current directory):
 ```sh
 docker run \
