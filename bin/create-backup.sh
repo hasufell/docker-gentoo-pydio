@@ -40,6 +40,7 @@ fi
 [[ -e ${outfile1} ]] && die "file \"${outfile1}\" does already exist!"
 
 docker run \
+	--name="${outfile1/:/_}" \
 	--volumes-from pydiodata \
 	hasufell/pydio-data:latest \
 	sh -c "tar cvf /${outfile1} /var/www/pydio &>/dev/null && cat /${outfile1}" \
@@ -49,15 +50,23 @@ docker run \
 # busybox image does not support 'tar --xz'
 xz -9 ./"${outfile1}" || die "failed to compress \"${outfile1}\""
 
+docker rm ${outfile1/:/_} > /dev/null || die "failed to remove temporary docker container ${outfile1/:/_}"
+
+echo "created backup: ${outfile1}.xz"
+
 
 ## mysql-data backup
 
 [[ -e ${outfile2} ]] && die "file \"${outfile2}\" does already exist!"
 
 docker run \
+	--name="${outfile2/:/_}" \
 	--volumes-from mysqldata \
 	hasufell/gentoo-mysql:latest \
 	sh -c "tar Jcvf /${outfile2}.xz /var/lib/mysql &>/dev/null && cat /${outfile2}.xz" \
 	> ./${outfile2}.xz \
 	|| die "failed to create backup \"${outfile2}\""
 
+docker rm ${outfile2/:/_} > /dev/null || die "failed to remove temporary docker container ${outfile2/:/_}"
+
+echo "created backup: ${outfile2}.xz"
