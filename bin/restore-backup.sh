@@ -56,6 +56,7 @@ fi
 xz -d --stdout ./"${inputfile1}" > ./"${inputfile1%.xz}" || die "failed to unpack \"${inputfile1}\""
 
 docker run \
+	--name="${inputfile1/:/_}" \
 	--volumes-from pydiodata \
 	-v "`pwd`":/backup \
 	hasufell/pydio-data:6.0.8 \
@@ -63,6 +64,9 @@ docker run \
 	|| die "failed to restore backup from ${inputfile1}!"
 
 rm -v ./"${inputfile1%.xz}" || die "failed to remove temporary file \"${inputfile1%.xz}\""
+docker rm ${inputfile1/:/_} > /dev/null || die "failed to remove temporary docker container ${inputfile1/:/_}"
+
+echo "restored backup: ${inputfile1}"
 
 
 ## mysql-data backup
@@ -72,9 +76,13 @@ rm -v ./"${inputfile1%.xz}" || die "failed to remove temporary file \"${inputfil
 [[ ${inputfile2} =~ 'mysql-data-backup' ]] || die "file \"${inputfile2}\" does not appear to be a mysql-data backup!"
 
 docker run \
+	--name="${inputfile2/:/_}" \
 	--volumes-from mysqldata \
 	-v "`pwd`":/backup \
 	hasufell/gentoo-mysql:20150820 \
 	sh -c "rm -rf /var/lib/mysql/* && tar -C / -Jxvf /backup/${inputfile2}" \
 	|| die "failed to restore backup from \"${inputfile2}\"!"
 
+docker rm ${inputfile2/:/_} > /dev/null || die "failed to remove temporary docker container ${inputfile2/:/_}"
+
+echo "restored backup: ${inputfile2}"
