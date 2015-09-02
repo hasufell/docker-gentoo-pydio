@@ -50,13 +50,13 @@ We can simply create backups of all our data containers
 docker run \
 	--volumes-from pydiodata \
 	-v "`pwd`":/backup \
-	hasufell/pydio-data:6.0.8 \
+	hasufell/pydio-data:latest \
 	sh -c 'tar cvf /backup/pydio-data-backup.tar /var/www/pydio'
 
 docker run \
 	--volumes-from mysqldata \
 	-v "`pwd`":/backup \
-	hasufell/gentoo-mysql:20150820 \
+	hasufell/gentoo-mysql:latest \
 	sh -c 'tar cvf /backup/mysql-data-backup.tar /var/lib/mysql'
 ```
 
