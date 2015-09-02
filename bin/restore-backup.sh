@@ -31,8 +31,8 @@ while [[ $# > 0 ]] ; do
 		--help|-h)
 			usage ;;
 		-*)
-   			echo "!!! Error: Unknown option ${1}. See: restore-backup.sh --help"
-   			exit 1 ;;
+			echo "!!! Error: Unknown option ${1}. See: restore-backup.sh --help"
+			exit 1 ;;
 
 		*)
 			break ;;
