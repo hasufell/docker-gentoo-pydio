@@ -47,39 +47,28 @@ docker-compose -f docker-compose-reverse-proxy.yml up -d
 We can simply create backups of all our data containers
 (in this example they will be dropped into the current directory):
 ```sh
-docker run \
-	--volumes-from pydiodata \
-	-v "`pwd`":/backup \
-	hasufell/pydio-data:latest \
-	sh -c 'tar cvf /backup/pydio-data-backup.tar /var/www/pydio'
+bin/create-backup.sh
+```
+This will drop 2 files into the current working dir, e.g.:
+```
+  pydio-data-backup-2015-09-02-11:53.tar.xz
+  mysql-data-backup-2015-09-02-11:53.tar.xz
 
-docker run \
-	--volumes-from mysqldata \
-	-v "`pwd`":/backup \
-	hasufell/gentoo-mysql:latest \
-	sh -c 'tar cvf /backup/mysql-data-backup.tar /var/lib/mysql'
 ```
 
-### Recreating from backup
+### Restore from backup
 
-Suppose we have the backups in `pydio-data-backup.tar.xz` and
-`mysql-data-backup.tar.xz` in the current directory and want to add that
-data on a new host. First we follow the [Prerequisites](README.md#prerequisites)
-section as usual. But we do __not__ follow the
+Suppose we have the backups in `pydio-data-backup-2015-09-02-11:53.tar.xz` and
+`mysql-data-backup-2015-09-02-11:53.tar.xz` in the current directory and want
+to add that data on a new host. First we follow the
+[Prerequisites](README.md#prerequisites) section as usual. But we do
+__not__ follow the
 [regular initialization](README.md#initializing-for-the-first-time).
-Instead, we run the following commands:
+Instead, we run the following command:
 ```sh
-docker run \
-	--volumes-from pydiodata \
-	-v "`pwd`":/backup \
-	hasufell/pydio-data:latest \
-	sh -c 'rm -rf /var/www/pydio/* && tar xvf /backup/pydio-data-backup.tar'
-
-docker run \
-	--volumes-from mysqldata \
-	-v "`pwd`":/backup \
-	hasufell/gentoo-mysql:latest \
-	sh -c 'rm -rf /var/lib/mysql/* && tar xvf /backup/mysql-data-backup.tar'
+bin/restore-backup.sh \
+	pydio-data-backup-2015-09-02-11:02.tar.xz \
+	mysql-data-backup-2015-09-02-11:02.tar.xz
 ```
 
 And now we _initialize_ the containers:
