@@ -41,9 +41,9 @@ fi
 
 docker run \
 	--volumes-from pydiodata \
-	-v "`pwd`":/backup \
 	hasufell/pydio-data:latest \
-	sh -c "tar cvf /backup/${outfile1} /var/www/pydio" \
+	sh -c "tar cvf /${outfile1} /var/www/pydio &>/dev/null && cat /${outfile1}" \
+	> ./${outfile1} \
 	|| die "failed to create backup \"${outfile1}\""
 
 # busybox image does not support 'tar --xz'
@@ -56,8 +56,8 @@ xz -9 ./"${outfile1}" || die "failed to compress \"${outfile1}\""
 
 docker run \
 	--volumes-from mysqldata \
-	-v "`pwd`":/backup \
 	hasufell/gentoo-mysql:latest \
-	sh -c "tar Jcvf /backup/${outfile2}.xz /var/lib/mysql" \
+	sh -c "tar Jcvf /${outfile2}.xz /var/lib/mysql &>/dev/null && cat /${outfile2}.xz" \
+	> ./${outfile2}.xz \
 	|| die "failed to create backup \"${outfile2}\""
 
