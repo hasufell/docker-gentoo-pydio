@@ -11,9 +11,6 @@ Usage: restore-backup.sh [ options ] <pydio-data-backup-file> <mysql-data-backup
 Restores from the backup files <pydio-data-backup-file> and
 <mysql-data-backup-file> respectively.
 
-  ${outfile1}.xz
-  ${outfile2}.xz
-
 options:
   --help, -h       Show help
 EOF
