@@ -124,3 +124,4 @@ _COMMAND-LINE ACTIVE_).
 ## TODO
 * don't expose the docker socket on the machine which is exposed to the net
 * allow to create multiple pydio instances on one host
+* outline the whole update procedure
