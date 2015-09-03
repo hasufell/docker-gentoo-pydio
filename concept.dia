@@ -368,10 +368,10 @@
     </dia:object>
     <dia:object type="Standard - Text" version="1" id="O5">
       <dia:attribute name="obj_pos">
-        <dia:point val="41.2,33.6"/>
+        <dia:point val="41.45,32.05"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="41.2,32.96;44.285,33.7325"/>
+        <dia:rectangle val="41.45,31.41;44.535,32.1825"/>
       </dia:attribute>
       <dia:attribute name="text">
         <dia:composite type="text">
@@ -385,7 +385,7 @@
             <dia:real val="0.80000000000000004"/>
           </dia:attribute>
           <dia:attribute name="pos">
-            <dia:point val="41.2,33.6"/>
+            <dia:point val="41.45,32.05"/>
           </dia:attribute>
           <dia:attribute name="color">
             <dia:color val="#000000"/>
