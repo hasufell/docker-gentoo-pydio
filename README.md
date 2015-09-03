@@ -73,6 +73,32 @@ And now we _initialize_ the containers:
 VIRTUAL_HOST=<pydio-hostname> docker-compose up -d
 ```
 
+## Updates
+
+### Non-pydio updates
+
+Pull the latest images:
+```sh
+docker-compose pull
+docker-compose -f docker-compose-reverse-proxy.yml pull
+```
+
+Rebuild local images:
+```sh
+docker-compose build --no-cache
+```
+
+Restart containers:
+```sh
+docker-compose -f docker-compose-reverse-proxy.yml stop
+docker-compose -f docker-compose-reverse-proxy.yml rm
+docker-compose -f docker-compose-reverse-proxy.yml up -d
+docker-compose stop
+docker-compose rm
+VIRTUAL_HOST=<pydio-hostname> docker-compose up -d
+
+```
+
 ## Setting up pydio
 
 Now use a browser and access the site, e.g. `https://www.example.net` if
