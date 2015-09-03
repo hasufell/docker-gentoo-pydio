@@ -86,7 +86,7 @@
         <dia:real val="0.10000000149011612"/>
       </dia:attribute>
       <dia:attribute name="line_colour">
-        <dia:color val="#0000ff"/>
+        <dia:color val="#00ff00"/>
       </dia:attribute>
       <dia:attribute name="fill_colour">
         <dia:color val="#ffffff"/>
@@ -620,11 +620,11 @@
         <dia:point val="36.5,8.195"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="36.45,8.145;36.55,15.995"/>
+        <dia:rectangle val="36.4497,8.14468;36.6003,16.1453"/>
       </dia:attribute>
       <dia:attribute name="conn_endpoints">
         <dia:point val="36.5,8.195"/>
-        <dia:point val="36.5,15.945"/>
+        <dia:point val="36.55,16.095"/>
       </dia:attribute>
       <dia:attribute name="numcp">
         <dia:int val="1"/>
@@ -638,11 +638,11 @@
         <dia:point val="36.45,19.6"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="36.3993,15.8943;36.5507,19.6507"/>
+        <dia:rectangle val="36.3986,16.0436;36.6014,19.6514"/>
       </dia:attribute>
       <dia:attribute name="conn_endpoints">
         <dia:point val="36.45,19.6"/>
-        <dia:point val="36.5,15.945"/>
+        <dia:point val="36.55,16.095"/>
       </dia:attribute>
       <dia:attribute name="numcp">
         <dia:int val="1"/>
@@ -1021,7 +1021,7 @@
         <dia:real val="0.10000000149011612"/>
       </dia:attribute>
       <dia:attribute name="line_colour">
-        <dia:color val="#00ff00"/>
+        <dia:color val="#0000ff"/>
       </dia:attribute>
       <dia:attribute name="fill_colour">
         <dia:color val="#ffffff"/>
@@ -1201,13 +1201,13 @@
     </dia:object>
     <dia:object type="Standard - Box" version="0" id="O27">
       <dia:attribute name="obj_pos">
-        <dia:point val="21.1,15.945"/>
+        <dia:point val="21.15,16.095"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="21.05,15.895;51.95,38.745"/>
+        <dia:rectangle val="21.1,16.045;52,38.895"/>
       </dia:attribute>
       <dia:attribute name="elem_corner">
-        <dia:point val="21.1,15.945"/>
+        <dia:point val="21.15,16.095"/>
       </dia:attribute>
       <dia:attribute name="elem_width">
         <dia:real val="30.79999999999999"/>
