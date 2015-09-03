@@ -122,4 +122,5 @@ _COMMAND-LINE ACTIVE_).
 
 
 ## TODO
-* better split out the runtime data portion from the rest of the pydio stuff (e.g. files)
+* don't expose the docker socket on the machine which is exposed to the net
+* allow to create multiple pydio instances on one host
