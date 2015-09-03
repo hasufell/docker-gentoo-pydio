@@ -15,6 +15,7 @@ pydiophp56:
     tty: true
     volumes_from:
       - pydiodata
+      - pydiodatastatic
     links:
       - mysql:mysql
 
@@ -24,6 +25,7 @@ nginxpydio:
     tty: true
     volumes_from:
       - pydiodata
+      - pydiodatastatic
     links:
       - mysql:mysql
       - pydiophp56:php56

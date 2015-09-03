@@ -2,6 +2,9 @@ pydiodata:
     image: hasufell/pydio-data:latest
     container_name: pydiodata
     command: echo pydiodata
+    volumes:
+      - /var/cache/pydio
+      - /var/lib/pydio
 
 mysqldata:
     image: hasufell/gentoo-mysql:latest

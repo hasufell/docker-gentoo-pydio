@@ -1,0 +1,22 @@
+location ~* ^/(?:\.|conf|pydio_public/(?:files|personal|logs|plugins|tmp|cache)|plugins/editor.zoho/agent/files) {
+	deny all;
+}
+# Enables PHP
+location ~ \.php$ {
+	# for ^/(index|plugins) request_uri should be changed
+	set $request_url $request_uri;
+	if ( $uri ~ ^/(index|plugins) ) {
+			set $request_url /;
+	}
+	include /etc/nginx/fastcgi.conf;
+	fastcgi_param  REQUEST_URI $request_url;
+	try_files $uri =404;
+	fastcgi_pass   php56:9000;
+}
+
+# Enables Caching
+location ~* \.(ico|css|js)$ {
+	 expires 7d;
+	add_header Pragma public;
+	add_header Cache-Control "public, must-revalidate, proxy-revalidate";
+}

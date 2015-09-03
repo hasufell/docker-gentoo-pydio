@@ -14,7 +14,7 @@ SSL certificates:
 
 Now we just need a few more steps:
 * install [docker-compose](https://docs.docker.com/compose/install/)
-* create the data containers: `docker-compose -f docker-compose-data.yml up`
+* create the data containers: `docker-compose -f docker-compose-data.yml up && docker-compose -f docker-compose-data-static.yml up`
 * start the reverse proxy: `docker-compose -f docker-compose-reverse-proxy.yml up -d`
 
 ### Initializing for the first time
@@ -54,7 +54,6 @@ This will drop 2 files into the current working dir, e.g.:
 ```
   pydio-data-backup-2015-09-02-11:53.tar.xz
   mysql-data-backup-2015-09-02-11:53.tar.xz
-
 ```
 
 ### Restore from backup
@@ -100,7 +99,6 @@ docker-compose -f docker-compose-reverse-proxy.yml up -d
 docker-compose stop
 docker-compose rm
 VIRTUAL_HOST=<pydio-hostname> docker-compose up -d
-
 ```
 
 ## Setting up pydio
@@ -115,8 +113,9 @@ when you set up the containers.
 
 For public links to work, log in as admin and go to the the admin settings
 (top right corner, then settings). Double click on _Application Parameters_,
-then on _Pydio Main Options_. Under _Main Options_ insert __https://\<pydiohostname\>__
+then on _Pydio Main Options_. Under _Main Options_ insert `https://<pydiohostname>`
 into the _SERVER URL_ field.
+
 On the same page you should also activate the PHP command line (further down
 under the _Command Line_ section, activate the 'yes' checkbox at
 _COMMAND-LINE ACTIVE_).

@@ -57,7 +57,7 @@ docker run \
 	--volumes-from pydiodata \
 	-v "`pwd`":/backup \
 	hasufell/pydio-data:latest \
-	sh -c "rm -rf /var/www/pydio/* && tar -C / -xvf /backup/${inputfile1%.xz}" \
+	sh -c "rm -rf /var/cache/pydio/* /var/lib/pydio/* && tar -C / -xvf /backup/${inputfile1%.xz}" \
 	|| die "failed to restore backup from ${inputfile1}!"
 
 rm -v ./"${inputfile1%.xz}" || die "failed to remove temporary file \"${inputfile1%.xz}\""

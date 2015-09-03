@@ -1,0 +1,7 @@
+pydiodatastatic:
+    image: hasufell/pydio-data:6.0.8
+    container_name: pydiodatastatic
+    command: echo pydiodatastatic
+    volumes:
+      - /usr/share/pydio
+      - /etc/pydio

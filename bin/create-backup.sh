@@ -43,7 +43,7 @@ docker run \
 	--name="${outfile1/:/_}" \
 	--volumes-from pydiodata \
 	hasufell/pydio-data:latest \
-	sh -c "tar cvf /${outfile1} /var/www/pydio &>/dev/null && cat /${outfile1}" \
+	sh -c "tar cvf /${outfile1} /var/cache/pydio /var/lib/pydio &>/dev/null && cat /${outfile1}" \
 	> ./${outfile1} \
 	|| die "failed to create backup \"${outfile1}\""
 
