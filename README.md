@@ -30,9 +30,7 @@ STARTUP_SQL=/mysql-scripts/create_pydio_db.sql \
 ```sh
 docker-compose stop
 docker-compose rm
-MYSQL_PASS=<mysql_admin_pass> \
-	VIRTUAL_HOST=<pydio-hostname> \
-	docker-compose up -d
+VIRTUAL_HOST=<pydio-hostname> docker-compose up -d
 ```
 
 ### Restarting the front proxy
@@ -72,8 +70,7 @@ bin/restore-backup.sh \
 
 And now we _initialize_ the containers:
 ```sh
-VIRTUAL_HOST=<pydio-hostname> \
-	docker-compose up -d
+VIRTUAL_HOST=<pydio-hostname> docker-compose up -d
 ```
 
 ## Setting up pydio
