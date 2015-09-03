@@ -26,6 +26,8 @@ STARTUP_SQL=/mysql-scripts/create_pydio_db.sql \
 	docker-compose up -d
 ```
 
+## Restarting
+
 ### Restarting the backend servers
 ```sh
 docker-compose stop
@@ -39,6 +41,8 @@ docker-compose -f docker-compose-reverse-proxy.yml stop
 docker-compose -f docker-compose-reverse-proxy.yml rm
 docker-compose -f docker-compose-reverse-proxy.yml up -d
 ```
+
+## Backups
 
 ### Creating backups
 
