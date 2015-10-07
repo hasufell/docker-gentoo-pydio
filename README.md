@@ -1,4 +1,4 @@
-# Gentoo based pydio with atomic nginx, mysql, php and data containers
+# Gentoo based pydio
 
 ## Getting started
 
