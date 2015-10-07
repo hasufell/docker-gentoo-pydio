@@ -10,11 +10,6 @@ of this clone!__
 SSL certificates:
 * make sure you have a proper ssl certificate setup somewhere, one for each virtual host you are running (if the virtual hostname is `foo.bar.com`, then the cert must be named `foo.bar.com.crt` and the key `foo.bar.com.key`), this folder will be mapped into the proxy server
 
-Now we just need a few more steps:
-* install [docker-compose](https://docs.docker.com/compose/install/)
-* create the data containers: `docker-compose -f docker-compose-data.yml up && docker-compose -f docker-compose-data-static.yml up`
-* start the reverse proxy: `docker-compose -f docker-compose-reverse-proxy.yml up -d`
-
 Make sure the folders you mount in from the host have group write permission
 for uuid 777.
 
