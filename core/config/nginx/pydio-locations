@@ -11,7 +11,7 @@ location ~ \.php$ {
 	include /etc/nginx/fastcgi.conf;
 	fastcgi_param  REQUEST_URI $request_url;
 	try_files $uri =404;
-	fastcgi_pass   php56:9000;
+	fastcgi_pass   127.0.0.1:9000;
 }
 
 # Enables Caching

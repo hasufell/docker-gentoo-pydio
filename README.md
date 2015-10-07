@@ -10,95 +10,89 @@ of this clone!__
 ### Prerequisites
 
 SSL certificates:
-* make sure you have a proper ssl certificate setup in `./nginx-proxy/ssl/server`, one for each virtual host you are running (if the virtual hostname is `foo.bar.com`, then the cert must be named `foo.bar.com.crt` and the key `foo.bar.com.key`), this folder will be mapped into the proxy server
+* make sure you have a proper ssl certificate setup somewhere, one for each virtual host you are running (if the virtual hostname is `foo.bar.com`, then the cert must be named `foo.bar.com.crt` and the key `foo.bar.com.key`), this folder will be mapped into the proxy server
 
 Now we just need a few more steps:
 * install [docker-compose](https://docs.docker.com/compose/install/)
 * create the data containers: `docker-compose -f docker-compose-data.yml up && docker-compose -f docker-compose-data-static.yml up`
 * start the reverse proxy: `docker-compose -f docker-compose-reverse-proxy.yml up -d`
 
+Make sure the folders you mount in from the host have group write permission
+for uuid 777.
+
 ### Initializing for the first time
+
+#### Starting up the front proxy
 ```sh
-STARTUP_SQL=/mysql-scripts/create_pydio_db.sql \
-	VIRTUAL_HOST=<pydio-hostname> \
-	PYDIO_DB_PW=<password> \
-	MYSQL_PASS=<mysql_admin_pass> \
-	docker-compose up -d
+docker pull hasufell/gentoo-nginx-proxy:latest
+docker run -ti -d \
+	--name=reverse-proxy \
+	-v /var/run/docker.sock:/tmp/docker.sock:ro \
+	-v <path-to-ssl-certs>:/etc/nginx/certs \
+	-p 80:80 \
+	-p 443:443 \
+	hasufell/gentoo-nginx-proxy
+```
+
+#### Starting up mysql
+```sh
+docker build -t hasufell/gentoo-mysql-pydio mysql/
+docker run -ti -d \
+	--name=pydio-mysql \
+	-e STARTUP_SQL=/mysql-scripts/create_pydio_db.sql \
+	-e PYDIO_DB_PW=<password> \
+	-e MYSQL_PASS=<mysql_admin_pass> \
+	-v <mysql-data-on-host>:/var/lib/mysql \
+	hasufell/gentoo-mysql-pydio
+```
+
+#### Starting up pydio
+```sh
+docker build -t hasufell/gentoo-pydio core/
+docker run -ti -d \
+	--name=pydio \
+	-e VIRTUAL_HOST=<pydio-hostname> \
+	--link pydio-mysql:mysql \
+	-v <pydio-cache-on-host>:/var/cache/pydio \
+	-v <pydio-data-on-host>:/var/lib/pydio \
+	hasufell/gentoo-pydio
 ```
 
 ## Restarting
 
 ### Restarting the backend servers
 ```sh
-docker-compose stop
-docker-compose rm
-VIRTUAL_HOST=<pydio-hostname> docker-compose up -d
+docker stop pydio
+docker stop pydio-mysql
+docker rm pydio
+docker rm pydio-mysql
+
+docker run -ti -d \
+	--name=pydio-mysql \
+	-v <mysql-data-on-host>:/var/lib/mysql \
+	hasufell/gentoo-mysql-pydio
+
+docker run -ti -d \
+	--name=pydio \
+	-e VIRTUAL_HOST=<pydio-hostname> \
+	--link pydio-mysql:mysql \
+	-v <pydio-cache-on-host>:/var/cache/pydio \
+	-v <pydio-data-on-host>:/var/lib/pydio \
+	hasufell/gentoo-pydio
 ```
 
 ### Restarting the front proxy
 ```sh
-docker-compose -f docker-compose-reverse-proxy.yml stop
-docker-compose -f docker-compose-reverse-proxy.yml rm
-docker-compose -f docker-compose-reverse-proxy.yml up -d
-```
+docker stop reverse-proxy
+docker rm reverse-proxy
 
-## Backups
-
-### Creating backups
-
-We can simply create backups of all our data containers:
-```sh
-bin/create-backup.sh
-```
-This will drop 2 files into the current working dir, e.g.:
-```
-  pydio-data-backup-2015-09-02-11:53.tar.xz
-  mysql-data-backup-2015-09-02-11:53.tar.xz
-```
-
-### Restore from backup
-
-Suppose we have the backups in `pydio-data-backup-2015-09-02-11:53.tar.xz` and
-`mysql-data-backup-2015-09-02-11:53.tar.xz` in the current directory and want
-to add that data on a new host. First we follow the
-[Prerequisites](README.md#prerequisites) section as usual. But we do
-__not__ follow the
-[regular initialization](README.md#initializing-for-the-first-time).
-Instead, we run the following command:
-```sh
-bin/restore-backup.sh \
-	pydio-data-backup-2015-09-02-11:02.tar.xz \
-	mysql-data-backup-2015-09-02-11:02.tar.xz
-```
-
-And now we _initialize_ the containers:
-```sh
-VIRTUAL_HOST=<pydio-hostname> docker-compose up -d
-```
-
-## Updates
-
-### Non-pydio updates
-
-Pull the latest images:
-```sh
-docker-compose pull
-docker-compose -f docker-compose-reverse-proxy.yml pull
-```
-
-Rebuild local images:
-```sh
-docker-compose build --no-cache
-```
-
-Restart containers:
-```sh
-docker-compose -f docker-compose-reverse-proxy.yml stop
-docker-compose -f docker-compose-reverse-proxy.yml rm
-docker-compose -f docker-compose-reverse-proxy.yml up -d
-docker-compose stop
-docker-compose rm
-VIRTUAL_HOST=<pydio-hostname> docker-compose up -d
+docker run -ti -d \
+	--name=reverse-proxy \
+	-v /var/run/docker.sock:/tmp/docker.sock:ro \
+	-v <path-to-ssl-certs>:/etc/nginx/certs \
+	-p 80:80 \
+	-p 443:443 \
+	hasufell/gentoo-nginx-proxy
 ```
 
 ## Setting up pydio
@@ -120,6 +114,67 @@ On the same page you should also activate the PHP command line (further down
 under the _Command Line_ section, activate the 'yes' checkbox at
 _COMMAND-LINE ACTIVE_).
 
+## Backups
+
+Just backup the mysql and pydio folders on the host which you have
+mapped into the containers.
+
+## Updates
+
+### Pydio and Mysql
+
+Pull the latest images:
+```sh
+docker pull hasufell/gentoo-mysql:latest
+docker pull hasufell/gentoo-nginx:latest
+```
+
+Rebuild local images:
+```sh
+docker build -t hasufell/gentoo-mysql-pydio mysql/
+docker build -t hasufell/gentoo-pydio core/
+```
+
+Restart containers:
+```sh
+docker stop pydio
+docker stop pydio-mysql
+docker rm pydio
+docker rm pydio-mysql
+
+docker run -ti -d \
+	--name=pydio-mysql \
+	-v <mysql-data-on-host>:/var/lib/mysql \
+	hasufell/gentoo-mysql-pydio
+
+docker run -ti -d \
+	--name=pydio \
+	-e VIRTUAL_HOST=<pydio-hostname> \
+	--link pydio-mysql:mysql \
+	-v <pydio-cache-on-host>:/var/cache/pydio \
+	-v <pydio-data-on-host>:/var/lib/pydio \
+	hasufell/gentoo-pydio
+```
+
+### Front proxy
+
+Pull the latest image:
+```sh
+docker pull hasufell/gentoo-nginx-proxy:latest
+```
+
+```sh
+docker stop reverse-proxy
+docker rm reverse-proxy
+
+docker run -ti -d \
+	--name=reverse-proxy \
+	-v /var/run/docker.sock:/tmp/docker.sock:ro \
+	-v <path-to-ssl-certs>:/etc/nginx/certs \
+	-p 80:80 \
+	-p 443:443 \
+	hasufell/gentoo-nginx-proxy
+```
 
 ## TODO
 * don't expose the docker socket on the machine which is exposed to the net
