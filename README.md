@@ -1,7 +1,5 @@
 # Gentoo based pydio with atomic nginx, mysql, php and data containers
 
-![Missing concept image!](https://raw.githubusercontent.com/wiki/hasufell/docker-gentoo-pydio/images/concept.png)
-
 ## Getting started
 
 __All of the commands should be executed from within the basedir
