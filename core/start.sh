@@ -16,8 +16,8 @@ dir_is_empty() {
 	fi
 
 	shopt -s nullglob dotglob     # To include hidden files
-
 	files=( "${dir}"/* )
+	shopt -u nullglob dotglob
 
 	if [[ ${#files[@]} -eq 0 ]]; then
 		return 0
@@ -25,7 +25,6 @@ dir_is_empty() {
 		return 1
 	fi
 
-	shopt -u nullglob dotglob
 }
 
 # if folders are empty, they are probably mounted in from the host,
