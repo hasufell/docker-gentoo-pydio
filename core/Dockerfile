@@ -7,6 +7,12 @@ MAINTAINER  Julian Ospald <hasufell@gentoo.org>
 # copy paludis config
 COPY ./config/paludis /etc/paludis
 
+# install necessary overlays
+RUN git clone --depth=1 https://github.com/hasufell/php-overlay.git \
+	/usr/php-overlay
+RUN chgrp paludisbuild /dev/tty && cave sync php-overlay
+RUN eix-update
+
 # update world with our USE flags
 RUN chgrp paludisbuild /dev/tty && cave resolve -c world -x
 
@@ -16,7 +22,7 @@ RUN chgrp paludisbuild /dev/tty && cave resolve -c tools -x
 # install php set
 RUN chgrp paludisbuild /dev/tty && cave resolve -c php -x
 
-# install php set
+# install pydio data deps
 RUN chgrp paludisbuild /dev/tty && cave resolve -c pydio-data -x
 
 # update etc files... hope this doesn't screw up
