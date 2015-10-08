@@ -54,9 +54,10 @@ RUN ln -s /var/lib/pydio/public/ /var/lib/pydio/public/pydio_public
 RUN chown -R :www /var/lib/pydio /var/cache/pydio && \
 	chmod -R g+w /var/lib/pydio /var/cache/pydio
 
-# move folders
-RUN mv /var/cache/pydio /var/cache/pydio-orig && \
-	mv /var/lib/pydio /var/lib/pydio-orig
+# copy folders, so we are able to sync them in our start script
+# in case the user mounts in an empty folder
+RUN cp -a /var/cache/pydio /var/cache/pydio-orig && \
+	cp -a /var/lib/pydio /var/lib/pydio-orig
 
 ## nginx-pydio
 RUN rm -rf /etc/nginx
