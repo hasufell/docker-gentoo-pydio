@@ -107,6 +107,11 @@ On the same page you should also activate the PHP command line (further down
 under the _Command Line_ section, activate the 'yes' checkbox at
 _COMMAND-LINE ACTIVE_).
 
+For WebDAV to work, go to _Pydio Main Options_ and activate
+_ENABLE WEBDAV_, then change _SHARES URI_ to `/shares`.
+This only enables global WebDAV support. Every user has to enable it for himself
+too under _My Account_ and then _WEBDAV PREFERENCES_.
+
 ## Backups
 
 Just backup the mysql and pydio folders on the host which you have
