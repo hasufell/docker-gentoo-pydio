@@ -1,5 +1,23 @@
 # Gentoo based pydio
 
+## Table of Contents
+
+* [Getting started](#getting-started)
+  * [Prerequisites](#prerequisites)
+  * [Initializing for the first time](#initializing-for-the-first-time)
+	* [Starting up the front proxy](#starting-up-the-front-proxy)
+	* [Starting up mysql](#starting-up-mysql)
+	* [Starting up pydio](#starting-up-pydio)
+* [Restarting](#restarting)
+  * [Restarting the backend servers](#restarting-the-backend-servers)
+  * [Restarting the front proxy](#restarting-the-front-proxy)
+* [Setting up pydio](#setting-up-pydio)
+* [Backups](#backups)
+* [Updates](#updates)
+  * [Pydio and Mysql](#pydio-and-mysql)
+  * [Front proxy](#front-proxy)
+* [TODO](#todo)
+
 ## Getting started
 
 __All of the commands should be executed from within the basedir
