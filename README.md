@@ -31,6 +31,14 @@ SSL certificates:
 Make sure the folders you mount in from the host have group write permission
 for uuid 777.
 
+If you want to use the mailer, you need a configured mail host, possibly
+using `hasufell/gentoo-dockermail` and linking the container to the
+main pydio container. Then you can pass the following environment variables
+when starting the main pydio container:
+* `MAIL_HUB` (sets `mailhub=...` in /etc/ssmtp/ssmtp.conf)
+* `MAIL_AUTHUSER` (sets `AuthUser=...` in /etc/ssmtp/ssmtp.conf)
+* `MAIL_AUTHPASS` (sets `AuthPass=...` in /etc/ssmtp/ssmtp.conf)
+
 ### Initializing for the first time
 
 #### Starting up the front proxy
@@ -129,6 +137,9 @@ For WebDAV to work, go to _Pydio Main Options_ and activate
 _ENABLE WEBDAV_, then change _SHARES URI_ to `/shares`.
 This only enables global WebDAV support. Every user has to enable it for himself
 too under _My Account_ and then _WEBDAV PREFERENCES_.
+
+For the mailer to work, follow <https://pyd.io/docs/v5/workspaces/workspaces-additional-features/notifications/> and make sure you passed the correct
+environment variables as described in [Prerequisites](#prerequisites).
 
 ## Backups
 

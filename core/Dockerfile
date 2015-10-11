@@ -20,7 +20,7 @@ RUN chgrp paludisbuild /dev/tty && cave resolve -c world -x
 RUN chgrp paludisbuild /dev/tty && cave resolve -c tools -x
 
 # install php set
-RUN chgrp paludisbuild /dev/tty && cave resolve -c php -x
+RUN chgrp paludisbuild /dev/tty && cave resolve -c php -x -F mail-mta/ssmtp
 
 # install pydio data deps
 RUN chgrp paludisbuild /dev/tty && cave resolve -c pydio-data -x
@@ -29,6 +29,9 @@ RUN chgrp paludisbuild /dev/tty && cave resolve -c pydio-data -x
 RUN etc-update --automode -5
 
 ################################
+
+## configure mailer
+COPY config/mailer.conf /etc/ssmtp/ssmtp.conf
 
 ## pydio data
 
