@@ -55,14 +55,15 @@ docker run -ti -d \
 
 #### Starting up mysql
 ```sh
-docker build -t hasufell/gentoo-mysql-pydio mysql/
+docker pull hasufell/gentoo-mysql:latest
 docker run -ti -d \
 	--name=pydio-mysql \
-	-e STARTUP_SQL=/mysql-scripts/create_pydio_db.sql \
-	-e PYDIO_DB_PW=<password> \
 	-e MYSQL_PASS=<mysql_admin_pass> \
 	-v <mysql-data-on-host>:/var/lib/mysql \
-	hasufell/gentoo-mysql-pydio
+	hasufell/gentoo-mysql
+docker exec -ti \
+	pydio-mysql \
+	/bin/bash -c "mysqladmin -u root create pydio && echo \"grant all on pydio.* to 'pydio'@'%' identified by '<db-pw>';\" | mysql -u root"
 ```
 
 #### Starting up pydio
@@ -89,7 +90,7 @@ docker rm pydio-mysql
 docker run -ti -d \
 	--name=pydio-mysql \
 	-v <mysql-data-on-host>:/var/lib/mysql \
-	hasufell/gentoo-mysql-pydio
+	hasufell/gentoo-mysql
 
 docker run -ti -d \
 	--name=pydio \
@@ -121,8 +122,7 @@ that is your nginx hostname. You will go through the setup wizard.
 
 When the pydio setup wizard requires you to enter the mysql server hostname,
 just type in `mysql`. The pydio user and database are both `pydio` and the
-pydio password is what you supplied in the environment variable `PYDIO_DB_PW`
-when you set up the containers.
+pydio password is what you supplied when you set up the mysql containers.
 
 For public links to work, log in as admin and go to the the admin settings
 (top right corner, then settings). Double click on _Application Parameters_,
@@ -158,7 +158,6 @@ docker pull hasufell/gentoo-nginx:latest
 
 Rebuild local images:
 ```sh
-docker build -t hasufell/gentoo-mysql-pydio mysql/
 docker build -t hasufell/gentoo-pydio core/
 ```
 
@@ -172,7 +171,7 @@ docker rm pydio-mysql
 docker run -ti -d \
 	--name=pydio-mysql \
 	-v <mysql-data-on-host>:/var/lib/mysql \
-	hasufell/gentoo-mysql-pydio
+	hasufell/gentoo-mysql
 
 docker run -ti -d \
 	--name=pydio \
