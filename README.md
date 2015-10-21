@@ -68,7 +68,7 @@ docker exec -ti \
 
 #### Starting up pydio
 ```sh
-docker build -t hasufell/gentoo-pydio core/
+docker build -t hasufell/gentoo-pydio .
 docker run -ti -d \
 	--name=pydio \
 	-e VIRTUAL_HOST=<pydio-hostname> \
@@ -158,7 +158,7 @@ docker pull hasufell/gentoo-nginx:latest
 
 Rebuild local images:
 ```sh
-docker build -t hasufell/gentoo-pydio core/
+docker build -t hasufell/gentoo-pydio .
 ```
 
 Restart containers:
