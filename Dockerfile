@@ -86,4 +86,4 @@ EXPOSE 9000
 COPY start.sh /
 RUN chmod +x /start.sh
 
-CMD /start.sh && /usr/bin/supervisord -n -c /etc/supervisord.conf
+CMD /start.sh && exec /usr/bin/supervisord -n -c /etc/supervisord.conf
