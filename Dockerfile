@@ -7,10 +7,10 @@ MAINTAINER  Julian Ospald <hasufell@gentoo.org>
 # copy paludis config
 COPY ./config/paludis /etc/paludis
 
-# install necessary overlays
-RUN git clone --depth=1 https://github.com/hasufell/php-overlay.git \
-	/usr/php-overlay
-RUN chgrp paludisbuild /dev/tty && cave sync php-overlay
+# clone repositories
+RUN git clone --depth=1 https://github.com/MOSAIKSoftware/mosaik-overlay.git \
+	/var/db/paludis/repositories/mosaik-overlay
+RUN chgrp paludisbuild /dev/tty && cave sync mosaik-overlay
 RUN eix-update
 
 # update world with our USE flags
