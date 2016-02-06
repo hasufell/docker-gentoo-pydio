@@ -4,8 +4,6 @@ MAINTAINER  Julian Ospald <hasufell@gentoo.org>
 
 ##### PACKAGE INSTALLATION #####
 
-RUN rm /etc/paludis/package_mask.conf.d/binhost.conf
-
 # install nginx
 RUN chgrp paludisbuild /dev/tty && cave resolve -c docker-pydio -x && \
 	cave resolve -z -1 mail-mta/ssmtp virtual/mta -F mail-mta/ssmtp \
