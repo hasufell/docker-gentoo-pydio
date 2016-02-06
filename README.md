@@ -32,7 +32,7 @@ Make sure the folders you mount in from the host have group write permission
 for uuid 777.
 
 If you want to use the mailer, you need a configured mail host, possibly
-using `hasufell/gentoo-dockermail` and linking the container to the
+using `mosaiksoftware/gentoo-dockermail` and linking the container to the
 main pydio container. Then you can pass the following environment variables
 when starting the main pydio container:
 * `MAIL_HUB` (sets `mailhub=...` in /etc/ssmtp/ssmtp.conf)
@@ -43,24 +43,24 @@ when starting the main pydio container:
 
 #### Starting up the front proxy
 ```sh
-docker pull hasufell/gentoo-nginx-proxy:latest
+docker pull mosaiksoftware/gentoo-nginx-proxy:latest
 docker run -ti -d \
 	--name=reverse-proxy \
 	-v /var/run/docker.sock:/tmp/docker.sock:ro \
 	-v <path-to-ssl-certs>:/etc/nginx/certs \
 	-p 80:80 \
 	-p 443:443 \
-	hasufell/gentoo-nginx-proxy
+	mosaiksoftware/gentoo-nginx-proxy
 ```
 
 #### Starting up mysql
 ```sh
-docker pull hasufell/gentoo-mysql:latest
+docker pull mosaiksoftware/gentoo-mysql:latest
 docker run -ti -d \
 	--name=pydio-mysql \
 	-e MYSQL_PASS=<mysql_admin_pass> \
 	-v <mysql-data-on-host>:/var/lib/mysql \
-	hasufell/gentoo-mysql
+	mosaiksoftware/gentoo-mysql
 docker exec -ti \
 	pydio-mysql \
 	/bin/bash -c "mysqladmin -u root create pydio && echo \"grant all on pydio.* to 'pydio'@'%' identified by '<db-pw>';\" | mysql -u root"
@@ -68,14 +68,14 @@ docker exec -ti \
 
 #### Starting up pydio
 ```sh
-docker build -t hasufell/gentoo-pydio .
+docker build -t mosaiksoftware/gentoo-pydio .
 docker run -ti -d \
 	--name=pydio \
 	-e VIRTUAL_HOST=<pydio-hostname> \
 	--link pydio-mysql:mysql \
 	-v <pydio-cache-on-host>:/var/cache/pydio \
 	-v <pydio-data-on-host>:/var/lib/pydio \
-	hasufell/gentoo-pydio
+	mosaiksoftware/gentoo-pydio
 ```
 
 ## Restarting
@@ -90,7 +90,7 @@ docker rm pydio-mysql
 docker run -ti -d \
 	--name=pydio-mysql \
 	-v <mysql-data-on-host>:/var/lib/mysql \
-	hasufell/gentoo-mysql
+	mosaiksoftware/gentoo-mysql
 
 docker run -ti -d \
 	--name=pydio \
@@ -98,7 +98,7 @@ docker run -ti -d \
 	--link pydio-mysql:mysql \
 	-v <pydio-cache-on-host>:/var/cache/pydio \
 	-v <pydio-data-on-host>:/var/lib/pydio \
-	hasufell/gentoo-pydio
+	mosaiksoftware/gentoo-pydio
 ```
 
 ### Restarting the front proxy
@@ -112,7 +112,7 @@ docker run -ti -d \
 	-v <path-to-ssl-certs>:/etc/nginx/certs \
 	-p 80:80 \
 	-p 443:443 \
-	hasufell/gentoo-nginx-proxy
+	mosaiksoftware/gentoo-nginx-proxy
 ```
 
 ## Setting up pydio
@@ -152,13 +152,13 @@ mapped into the containers.
 
 Pull the latest images:
 ```sh
-docker pull hasufell/gentoo-mysql:latest
-docker pull hasufell/gentoo-nginx:latest
+docker pull mosaiksoftware/gentoo-mysql:latest
+docker pull mosaiksoftware/gentoo-nginx:latest
 ```
 
 Rebuild local images:
 ```sh
-docker build -t hasufell/gentoo-pydio .
+docker build -t mosaiksoftware/gentoo-pydio .
 ```
 
 Restart containers:
@@ -171,7 +171,7 @@ docker rm pydio-mysql
 docker run -ti -d \
 	--name=pydio-mysql \
 	-v <mysql-data-on-host>:/var/lib/mysql \
-	hasufell/gentoo-mysql
+	mosaiksoftware/gentoo-mysql
 
 docker run -ti -d \
 	--name=pydio \
@@ -179,14 +179,14 @@ docker run -ti -d \
 	--link pydio-mysql:mysql \
 	-v <pydio-cache-on-host>:/var/cache/pydio \
 	-v <pydio-data-on-host>:/var/lib/pydio \
-	hasufell/gentoo-pydio
+	mosaiksoftware/gentoo-pydio
 ```
 
 ### Front proxy
 
 Pull the latest image:
 ```sh
-docker pull hasufell/gentoo-nginx-proxy:latest
+docker pull mosaiksoftware/gentoo-nginx-proxy:latest
 ```
 
 ```sh
@@ -199,7 +199,7 @@ docker run -ti -d \
 	-v <path-to-ssl-certs>:/etc/nginx/certs \
 	-p 80:80 \
 	-p 443:443 \
-	hasufell/gentoo-nginx-proxy
+	mosaiksoftware/gentoo-nginx-proxy
 ```
 
 ## TODO

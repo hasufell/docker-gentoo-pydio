@@ -1,29 +1,13 @@
-FROM        hasufell/gentoo-nginx:latest
+FROM        mosaiksoftware/gentoo-nginx:latest
 MAINTAINER  Julian Ospald <hasufell@gentoo.org>
 
 
 ##### PACKAGE INSTALLATION #####
 
-# copy paludis config
-COPY ./config/paludis /etc/paludis
-
-# clone repositories
-RUN git clone --depth=1 https://github.com/MOSAIKSoftware/mosaik-overlay.git \
-	/var/db/paludis/repositories/mosaik-overlay
-RUN chgrp paludisbuild /dev/tty && cave sync mosaik-overlay
-RUN eix-update
-
-# update world with our USE flags
-RUN chgrp paludisbuild /dev/tty && cave resolve -c world -x
-
-# install tools set
-RUN chgrp paludisbuild /dev/tty && cave resolve -c tools -x
-
-# install php set
-RUN chgrp paludisbuild /dev/tty && cave resolve -c php -x -F mail-mta/ssmtp
-
-# install pydio data deps
-RUN chgrp paludisbuild /dev/tty && cave resolve -c pydio-data -x
+# install nginx
+RUN chgrp paludisbuild /dev/tty && cave resolve -c docker-pydio -x && \
+	cave resolve -z -1 mail-mta/ssmtp -F mail-mta/ssmtp -U '*/*' -x && \
+	rm -rf /usr/portage/distfiles/* /srv/binhost/*
 
 # update etc files... hope this doesn't screw up
 RUN etc-update --automode -5
