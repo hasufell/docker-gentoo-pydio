@@ -27,6 +27,33 @@ dir_is_empty() {
 
 }
 
+sed_ssmtp() {
+	local i
+	local args=(
+		root
+		mailhub
+		AuthUser
+		AuthPass
+		UseSTARTTLS
+		UseTLS
+		TLSCert
+		FromLineOverride
+	)
+
+	for i in ${args[@]} ; do
+		if [[ ${!i} ]] ; then
+			if $(grep "^${i}=.*" /etc/ssmtp/ssmtp.conf 1>/dev/null) ; then
+				sed -i -e \
+					"s/^${i}=.*$/${i}=${!i}/" \
+					/etc/ssmtp/ssmtp.conf
+			else
+				echo "${i}=${!i}" >> /etc/ssmtp/ssmtp.conf
+			fi
+		fi
+	done
+}
+
+
 # if folders are empty, they are probably mounted in from the host,
 # so we sync them
 
@@ -50,20 +77,5 @@ if dir_is_empty /var/cache/pydio ; then
 	rsync -a /var/cache/pydio-orig/* /var/cache/pydio/
 fi
 
-if [[ -n ${MAIL_HUB} ]] ; then
-	sed -i \
-		-e "s/^mailhub=.*$/mailhub=${MAIL_HUB}/" \
-		/etc/ssmtp/ssmtp.conf
-fi
+sed_ssmtp
 
-if [[ -n ${MAIL_AUTHUSER} ]] ; then
-	sed -i \
-		-e "s/^AuthUser=.*$/AuthUser=${MAIL_AUTHUSER}/" \
-		/etc/ssmtp/ssmtp.conf
-fi
-
-if [[ -n ${MAIL_AUTHPASS} ]] ; then
-	sed -i \
-		-e "s/^AuthPass=.*$/AuthPass=${MAIL_AUTHPASS}/" \
-		/etc/ssmtp/ssmtp.conf
-fi

@@ -35,9 +35,11 @@ If you want to use the mailer, you need a configured mail host, possibly
 using `hasufell/gentoo-dockermail` and linking the container to the
 main pydio container. Then you can pass the following environment variables
 when starting the main pydio container:
-* `MAIL_HUB` (sets `mailhub=...` in /etc/ssmtp/ssmtp.conf)
-* `MAIL_AUTHUSER` (sets `AuthUser=...` in /etc/ssmtp/ssmtp.conf)
-* `MAIL_AUTHPASS` (sets `AuthPass=...` in /etc/ssmtp/ssmtp.conf)
+* `mailhub` (sets `mailhub=...` in /etc/ssmtp/ssmtp.conf)
+* `AuthUser` (sets `AuthUser=...` in /etc/ssmtp/ssmtp.conf)
+* `AuthPass` (sets `AuthPass=...` in /etc/ssmtp/ssmtp.conf)
+And any other config variable from `/etc/ssmtp/ssmtp.conf` as an
+environment variable.
 
 ### Initializing for the first time
 
