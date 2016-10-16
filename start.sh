@@ -42,7 +42,7 @@ sed_ssmtp() {
 
 	for i in ${args[@]} ; do
 		if [[ ${!i} ]] ; then
-			if $(grep "^${i}=.*" /etc/ssmtp/ssmtp.conf 1>/dev/null) ; then
+			if $(grep -q "^${i}=.*" /etc/ssmtp/ssmtp.conf) ; then
 				sed -i -e \
 					"s/^${i}=.*$/${i}=${!i}/" \
 					/etc/ssmtp/ssmtp.conf
