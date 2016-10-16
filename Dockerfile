@@ -16,7 +16,9 @@ RUN git clone --depth=1 https://github.com/MOSAIKSoftware/mosaik-overlay.git \
 	cave resolve -c world -x && \
 	cave resolve -c tools -x && \
 	cave resolve -c php -x -F mail-mta/ssmtp && \
-	cave resolve -c pydio-data -x
+	cave resolve -c pydio-data -x && \
+	rm -rf /usr/portage/distfiles/* /var/tmp/paludis/* \
+		/var/tmp/portage/*
 
 # update etc files... hope this doesn't screw up
 RUN etc-update --automode -5
