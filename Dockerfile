@@ -9,21 +9,14 @@ COPY ./config/paludis /etc/paludis
 
 # clone repositories
 RUN git clone --depth=1 https://github.com/MOSAIKSoftware/mosaik-overlay.git \
-	/var/db/paludis/repositories/mosaik-overlay
-RUN chgrp paludisbuild /dev/tty && cave sync mosaik-overlay
-RUN eix-update
-
-# update world with our USE flags
-RUN chgrp paludisbuild /dev/tty && cave resolve -c world -x
-
-# install tools set
-RUN chgrp paludisbuild /dev/tty && cave resolve -c tools -x
-
-# install php set
-RUN chgrp paludisbuild /dev/tty && cave resolve -c php -x -F mail-mta/ssmtp
-
-# install pydio data deps
-RUN chgrp paludisbuild /dev/tty && cave resolve -c pydio-data -x
+		/var/db/paludis/repositories/mosaik-overlay && \
+	chgrp paludisbuild /dev/tty && \
+	cave sync mosaik-overlay  && \
+	eix-update && \
+	cave resolve -c world -x && \
+	cave resolve -c tools -x && \
+	cave resolve -c php -x -F mail-mta/ssmtp && \
+	cave resolve -c pydio-data -x
 
 # update etc files... hope this doesn't screw up
 RUN etc-update --automode -5
